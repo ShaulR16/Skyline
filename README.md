@@ -13,7 +13,9 @@
 
 ## Demo
 
-![Mind Map Demo](link_to_gif_or_screenshot)
+![Skyline Demo 1](./images/skyline1.png)
+![Skyline Demo 2](./images/skyline2.png)
+![Skyline Demo 3](./images/skyline3.png)
 
 ## Technologies Used
 
