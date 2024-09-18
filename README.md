@@ -13,9 +13,7 @@
 
 ## Demo
 
-![Skyline Demo 1](./images/skyline1.png)
-![Skyline Demo 2](./images/skyline2.png)
-![Skyline Demo 3](./images/skyline3.png)
+For a demo, please visit: [https://shaulr16.github.io/Skyline/](https://shaulr16.github.io/Skyline/)
 
 ## Technologies Used
 
