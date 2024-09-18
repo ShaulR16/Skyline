@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Diagnostic Settings to Capture Function Logs",
+    "icon": "https://img.icons8.com/?size=100&id=pvMmIo3ZCmFe&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Function Apps",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "az functionapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all function apps in the specified resource group.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/functionapp?view=azure-cli-latest#az-functionapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Enable Diagnostic Settings",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/diagnostics.png",
+            "details": {
+                "command": "az monitor diagnostic-settings create --resource <FunctionAppId> --resource-group <ResourceGroupName> --resource-type 'Microsoft.Web/sites' --workspace <LogAnalyticsWorkspaceId> --name <DiagnosticName>",
+                "description": "Enables diagnostic settings to capture logs for the specified function app.",
+                "services": ["Monitor"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/monitor/diagnostic-settings?view=azure-cli-latest#az-monitor-diagnostic-settings-create"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Logs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/log.png",
+            "details": {
+                "command": "az monitor log-analytics query -w <LogAnalyticsWorkspaceId> -q 'AzureDiagnostics | where ResourceId == <FunctionAppId>'",
+                "description": "Queries the logs to capture function activities.",
+                "services": ["Monitor"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/monitor/log-analytics/query?view=azure-cli-latest#az-monitor-log-analytics-query"
+            }
+        }
+    ]
+}

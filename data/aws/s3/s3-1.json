@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Publicly Accessible S3 Buckets to Access Data",
+    "icon": "https://img.icons8.com/?size=100&id=106501&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List S3 Buckets",
+            "icon": "https://img.icons8.com/?size=100&id=izmIMV8NrprI&format=png&color=000000",
+            "details": {
+                "command": "aws s3 ls",
+                "description": "Lists all S3 buckets in the specified AWS account.",
+                "services": ["S3"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3/ls.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Check Bucket ACLs",
+            "icon": "https://img.icons8.com/?size=100&id=11266&format=png&color=000000",
+            "details": {
+                "command": "aws s3api get-bucket-acl --bucket <BucketName>",
+                "description": "Checks the access control list (ACL) of the specified S3 bucket.",
+                "services": ["S3"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3api/get-bucket-acl.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Public Bucket Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/download.png",
+            "details": {
+                "command": "aws s3 cp s3://<BucketName>/<ObjectKey> <LocalPath>",
+                "description": "Accesses and copies data from a publicly accessible S3 bucket.",
+                "services": ["S3"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html"
+            }
+        }
+    ]
+}

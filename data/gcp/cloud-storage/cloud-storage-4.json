@@ -1,0 +1,59 @@
+{
+    "title": "Exploit Bucket Lifecycle Policy for Data Persistence",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Buckets",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gsutil ls",
+                "description": "Lists all Cloud Storage buckets in the specified GCP project.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/storage/docs/gsutil/commands/ls"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Check Bucket Lifecycle Policy",
+            "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+            "details": {
+                "command": "gsutil lifecycle get gs://<BucketName>",
+                "description": "Checks the lifecycle policy of the specified Cloud Storage bucket.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/storage/docs/using-lifecycle-configurations"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify Lifecycle Policy",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/modify.png",
+            "details": {
+                "command": "gsutil lifecycle set <LifecyclePolicyFile> gs://<BucketName>",
+                "description": "Modifies the lifecycle policy of the Cloud Storage bucket to persist malicious data.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Persistence"],
+                "references": "https://cloud.google.com/storage/docs/using-lifecycle-configurations"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Verify Data Persistence",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/verify.png",
+            "details": {
+                "command": "gsutil ls gs://<BucketName>",
+                "description": "Verifies that the malicious data persists according to the modified lifecycle policy.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Persistence"]
+            }
+        }
+    ]
+}

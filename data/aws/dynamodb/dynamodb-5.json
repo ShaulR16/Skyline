@@ -1,0 +1,48 @@
+{
+    "title": "Exploit DynamoDB Global Tables to Access Data Across Regions",
+    "icon": "https://img.icons8.com/?size=100&id=yhTsDHXiSGTY&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List DynamoDB Global Tables",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws dynamodb list-global-tables",
+                "description": "Lists all DynamoDB global tables in the specified AWS account.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/list-global-tables.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Global Table",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/global-table.png",
+            "details": {
+                "command": "aws dynamodb describe-global-table --global-table-name <GlobalTableName>",
+                "description": "Describes the specified DynamoDB global table, including its configuration and permissions.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/describe-global-table.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Data Across Regions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/data-across-regions.png",
+            "details": {
+                "command": "aws dynamodb scan --table-name <TableName> --region <Region>",
+                "description": "Scans the specified DynamoDB global table to read its data across different regions.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/scan.html"
+            }
+        }
+    ]
+}

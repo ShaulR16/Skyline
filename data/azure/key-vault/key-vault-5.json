@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Service Principal to Access Key Vault",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Service Principals",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "az ad sp list",
+                "description": "Lists all service principals in the Azure AD tenant.",
+                "services": ["AzureAD"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Service Principal Credentials",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "az ad sp credential list --id <ServicePrincipalId>",
+                "description": "Lists credentials of a specified service principal.",
+                "services": ["AzureAD"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/ad/sp/credential?view=azure-cli-latest#az-ad-sp-credential-list"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Use Service Principal to Access Key Vault",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "az keyvault secret list --vault-name <VaultName> --auth-mode service-principal --client-id <ClientId> --client-secret <ClientSecret> --tenant-id <TenantId>",
+                "description": "Lists secrets in the specified Key Vault using a service principal.",
+                "services": ["KeyVault"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest#az-keyvault-secret-list"
+            }
+        }
+    ]
+}

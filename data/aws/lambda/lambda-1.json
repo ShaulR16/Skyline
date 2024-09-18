@@ -1,0 +1,47 @@
+{
+    "title": "Exploit Lambda Environment Variables to Access Secrets",
+    "icon": "https://img.icons8.com/?size=100&id=32380&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Lambda Functions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws lambda list-functions",
+                "description": "Lists all Lambda functions in the specified region.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-functions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Lambda Function Configuration",
+            "icon": "https://img.icons8.com/?size=100&id=22991&format=png&color=000000",
+            "details": {
+                "command": "aws lambda get-function-configuration --function-name <FunctionName>",
+                "description": "Retrieves the configuration of the specified Lambda function, including environment variables.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/get-function-configuration.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Secrets from Environment Variables",
+            "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+            "details": {
+                "command": "echo $<EnvironmentVariable>",
+                "description": "Accesses secrets stored in the Lambda environment variables.",
+                "services": ["Lambda"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

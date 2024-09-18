@@ -1,0 +1,36 @@
+{
+    "title": "Enumerate and Access SQL Databases",
+    "icon": "https://img.icons8.com/?size=100&id=RxBYeXdnyQtJ&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List SQL Databases",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/database.png",
+            "details": {
+                "command": "az sql db list --resource-group <ResourceGroupName> --server <ServerName>",
+                "description": "Lists all SQL databases in the specified server.",
+                "services": ["SQLDatabase"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/sql/db?view=azure-cli-latest#az-sql-db-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Access SQL Database",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/access.png",
+            "details": {
+                "command": "sqlcmd -S <ServerName>.database.windows.net -d <DatabaseName> -U <Username> -P <Password>",
+                "description": "Accesses the specified SQL database using sqlcmd.",
+                "services": ["SQLDatabase"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-ver15"
+            }
+        }
+    ]
+}

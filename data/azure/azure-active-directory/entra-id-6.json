@@ -1,0 +1,36 @@
+{
+    "title": "Exploit Privileged Identity Management (PIM) to Elevate Privileges",
+    "icon": "https://img.icons8.com/?size=100&id=39371&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List PIM Assignments",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/assignment.png",
+            "details": {
+                "command": "az ad privileged-role assignment list",
+                "description": "Lists all privileged role assignments in the Azure AD tenant.",
+                "services": ["AzureAD"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/ad/privileged-role/assignment?view=azure-cli-latest#az-ad-privileged-role-assignment-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Activate Privileged Role",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/activate.png",
+            "details": {
+                "command": "az ad privileged-role assignment activate --name <RoleName>",
+                "description": "Activates a privileged role assignment to gain elevated privileges.",
+                "services": ["AzureAD"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/ad/privileged-role/assignment?view=azure-cli-latest#az-ad-privileged-role-assignment-activate"
+            }
+        }
+    ]
+}

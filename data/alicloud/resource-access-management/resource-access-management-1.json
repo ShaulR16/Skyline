@@ -1,0 +1,59 @@
+{
+    "title": "Exploit RAM User Misconfiguration for Privilege Escalation",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List RAM Users",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aliyun ram ListUsers",
+                "description": "Lists all RAM users in the specified account.",
+                "services": ["RAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://www.alibabacloud.com/help/doc-detail/28700.htm"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe RAM User",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "aliyun ram GetUser --UserName <userName>",
+                "description": "Describes the specified RAM user to find misconfigurations.",
+                "services": ["RAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://www.alibabacloud.com/help/doc-detail/28701.htm"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify RAM User Policies",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/modify.png",
+            "details": {
+                "command": "aliyun ram UpdatePolicy --PolicyName <policyName> --PolicyDocument '<newPolicyDocument>'",
+                "description": "Modifies the RAM user policies to grant elevated privileges.",
+                "services": ["RAM"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://www.alibabacloud.com/help/doc-detail/28702.htm"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Use Elevated Privileges",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/use.png",
+            "details": {
+                "command": "Use the modified RAM policies to access restricted resources",
+                "description": "Gains unauthorized access to restricted resources using elevated privileges.",
+                "services": ["RAM"],
+                "attack_types": ["Privilege Escalation"]
+            }
+        }
+    ]
+}

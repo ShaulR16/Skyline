@@ -1,0 +1,36 @@
+{
+    "title": "List and Download Blob Storage Contents",
+    "icon": "https://img.icons8.com/?size=100&id=2945&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Blobs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "az storage blob list --account-name <StorageAccountName> --container-name <ContainerName>",
+                "description": "Lists all blobs in the specified container.",
+                "services": ["BlobStorage"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Download Blob",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/download.png",
+            "details": {
+                "command": "az storage blob download --account-name <StorageAccountName> --container-name <ContainerName> --name <BlobName> --file <LocalFileName>",
+                "description": "Downloads a blob from the specified container.",
+                "services": ["BlobStorage"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-download"
+            }
+        }
+    ]
+}

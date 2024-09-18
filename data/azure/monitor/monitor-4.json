@@ -1,0 +1,36 @@
+{
+    "title": "Delete Alert Rules",
+    "icon": "https://img.icons8.com/?size=100&id=gjhtZ8keOudc&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Alert Rules",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/alert.png",
+            "details": {
+                "command": "az monitor metrics alert list --resource-group <ResourceGroupName>",
+                "description": "Lists all alert rules in the specified resource group.",
+                "services": ["Monitor"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/monitor/metrics/alert?view=azure-cli-latest#az-monitor-metrics-alert-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Delete Alert Rule",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/delete-file.png",
+            "details": {
+                "command": "az monitor metrics alert delete --name <AlertName> --resource-group <ResourceGroupName>",
+                "description": "Deletes an alert rule from the specified resource group.",
+                "services": ["Monitor"],
+                "attack_types": ["Destruction"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/monitor/metrics/alert?view=azure-cli-latest#az-monitor-metrics-alert-delete"
+            }
+        }
+    ]
+}

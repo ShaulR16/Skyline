@@ -1,0 +1,45 @@
+{
+    "title": "Exploit BigQuery Custom SQL Injection for Data Exfiltration",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Identify Vulnerable Application",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/vulnerable.png",
+            "details": {
+                "command": "Review web application for SQL injection vulnerabilities",
+                "description": "Identifies a web application vulnerable to SQL injection.",
+                "services": ["BigQuery"],
+                "attack_types": ["Enumeration"]
+            }
+        },
+        {
+            "id": 3,
+            "label": "Inject Malicious SQL Query",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/sql.png",
+            "details": {
+                "command": "Inject 'UNION SELECT * FROM `<DatasetID>.<TableID>`' into vulnerable parameter",
+                "description": "Injects a malicious SQL query into the vulnerable application parameter.",
+                "services": ["BigQuery"],
+                "attack_types": ["SQL Injection"]
+            }
+        },
+        {
+            "id": 4,
+            "label": "Extract Sensitive Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/extract.png",
+            "details": {
+                "command": "View extracted data from the application",
+                "description": "Extracts sensitive data from BigQuery through SQL injection.",
+                "services": ["BigQuery"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

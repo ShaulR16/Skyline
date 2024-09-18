@@ -1,0 +1,36 @@
+{
+    "title": "Create Malicious Log Analytics Query",
+    "icon": "https://img.icons8.com/?size=100&id=RIthHeTYYGBt&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Log Analytics Workspaces",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/log.png",
+            "details": {
+                "command": "az monitor log-analytics workspace list --resource-group <ResourceGroupName>",
+                "description": "Lists all Log Analytics workspaces in the specified resource group.",
+                "services": ["Monitor"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/monitor/log-analytics/workspace?view=azure-cli-latest#az-monitor-log-analytics-workspace-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create Log Analytics Query",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/log.png",
+            "details": {
+                "command": "az monitor log-analytics query --workspace <WorkspaceId> --analytics-query 'union * | where TimeGenerated > ago(1h)'",
+                "description": "Creates a malicious query to exfiltrate logs.",
+                "services": ["Monitor"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/monitor/log-analytics/query?view=azure-cli-latest#az-monitor-log-analytics-query"
+            }
+        }
+    ]
+}

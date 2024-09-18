@@ -1,0 +1,36 @@
+{
+    "title": "Backup and Restore Key Vault Secrets",
+    "icon": "https://img.icons8.com/?size=100&id=11351&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Backup Key Vault Secret",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/data-backup.png",
+            "details": {
+                "command": "az keyvault secret backup --vault-name <VaultName> --name <SecretName> --file <BackupFile>",
+                "description": "Backs up a specified secret from the Azure Key Vault to a file.",
+                "services": ["KeyVault"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest#az-keyvault-secret-backup"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Restore Key Vault Secret",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/data-backup.png",
+            "details": {
+                "command": "az keyvault secret restore --vault-name <VaultName> --file <BackupFile>",
+                "description": "Restores a backed-up secret to the Azure Key Vault.",
+                "services": ["KeyVault"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest#az-keyvault-secret-restore"
+            }
+        }
+    ]
+}

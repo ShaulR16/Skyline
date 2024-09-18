@@ -1,0 +1,189 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0a0f2c;
+    color: #fff;
+}
+
+h1 {
+    color: #fff;
+}
+
+.cy {
+    width: 100%;
+    height: 700px;
+    border: 1px solid #ccc;
+    background-color: #0a0f2c;
+}
+
+select.form-control, button {
+    background-color: #1b213b;
+    color: #fff;
+    border: 1px solid #525f80;
+}
+
+select.form-control:focus, button:focus {
+    background-color: #1b213b;
+    color: #fff;
+    border: 1px solid #525f80;
+}
+
+.node-attacker {
+    background-color: #ff3b3f;
+    shape: ellipse;
+    width: 80px;
+    height: 80px;
+    border-color: #ffffff;
+    border-width: 3px;
+    text-valign: center;
+    text-halign: center;
+    font-size: 14px;
+    color: #ffffff;
+    background-image: url('https://img.icons8.com/ios-filled/50/ffffff/hacker.png');
+    background-fit: cover;
+    background-clip: none;
+    background-opacity: 1;
+}
+
+.node-normal {
+    background-color: #3b82f6;
+    shape: round-rectangle;
+    width: 100px;
+    height: 60px;
+    border-color: #ffffff;
+    border-width: 2px;
+    text-valign: center;
+    text-halign: center;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.edge {
+    width: 4px;
+    line-color: #8e8e8e;
+    target-arrow-color: #8e8e8e;
+    target-arrow-shape: triangle;
+}
+
+.edge-critical {
+    line-color: #ff3b3f;
+    target-arrow-color: #ff3b3f;
+    target-arrow-shape: triangle;
+}
+
+.node-selected {
+    border-color: #ffeb3b;
+    border-width: 3px;
+}
+
+/* Custom Modal Styles */
+.modal-content {
+    background-color: #2a2a3b;
+    border-radius: 8px;
+    color: #fff;
+    width: 150%;
+    border: none;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    color: #ff3b3f;
+}
+
+.modal-body {
+    background-color: #2a2a3b;
+    padding: 20px;
+}
+
+.modal-footer {
+    border-top: none;
+    background-color: #2a2a3b;
+}
+
+.btn-secondary {
+    background-color: #4b4b6b;
+    border: none;
+}
+
+.close {
+    color: #fff;
+    opacity: 1;
+}
+
+.close:hover {
+    color: #ffeb3b;
+}
+
+#nodeTitle {
+    color: #ff3b3f;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#nodeDescription, #nodeCommand, #nodeReference {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+#nodeReference {
+    color: #4da6ff;
+    text-decoration: underline;
+}
+
+#nodeReference:hover {
+    color: #ffeb3b;
+}
+
+.code-snippet {
+    position: relative;
+    background-color: #1b1b2f;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    overflow: auto;
+    max-height: 300px;
+}
+
+.code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
+    color: #fff;
+    margin: 0;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.copy-btn img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%);
+}
+
+.navbar {
+    background-color: #29293d !important;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ff004d !important;
+  }
+  
+  .nav-link {
+    color: #fff !important;
+  }
+  
+  .nav-link:hover {
+    color: #ff004d !important;
+  }

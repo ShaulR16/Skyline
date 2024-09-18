@@ -1,0 +1,36 @@
+{
+    "title": "Modify Route Tables to Intercept Traffic",
+    "icon": "https://img.icons8.com/?size=100&id=66045&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Route Tables",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/route.png",
+            "details": {
+                "command": "az network route-table list --resource-group <ResourceGroupName>",
+                "description": "Lists all route tables in the specified resource group.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/route-table?view=azure-cli-latest#az-network-route-table-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Add Route to Route Table",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/add-route.png",
+            "details": {
+                "command": "az network route-table route create --resource-group <ResourceGroupName> --route-table-name <RouteTableName> --name <RouteName> --address-prefix <AddressPrefix> --next-hop-type <NextHopType> --next-hop-ip-address <NextHopIPAddress>",
+                "description": "Adds a route to the route table to redirect traffic.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/route-table/route?view=azure-cli-latest#az-network-route-table-route-create"
+            }
+        }
+    ]
+}

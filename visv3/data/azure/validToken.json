@@ -1,0 +1,55 @@
+{
+    "elements": [
+        { "data": { "id": "root", "title": "Azure", "description": "Azure cloud provider", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-attacker" },
+        { "data": { "id": "validToken", "title": "Valid Token", "description": "Use valid token for authentication", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "apiToken", "title": "API Token", "description": "Explore API Token techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "aadGraph", "title": "AAD Graph", "description": "Explore AAD Graph techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "azureAdminPortal", "title": "Azure Admin Portal", "description": "Explore Azure Admin Portal techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "exchangeOnline", "title": "Exchange Online", "description": "Explore Exchange Online techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "azureCoreManagement", "title": "Azure Core Management", "description": "Explore Azure Core Management techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "teams", "title": "Teams", "description": "Explore Teams techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "manipulationTokens", "title": "Manipulation Tokens", "description": "Explore token manipulation techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "oneDrive", "title": "OneDrive", "description": "Explore OneDrive techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "root", "target": "validToken" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "apiToken" }, "classes": "edge" },
+        { "data": { "source": "apiToken", "target": "aadGraph" }, "classes": "edge" },
+        { "data": { "source": "apiToken", "target": "azureAdminPortal" }, "classes": "edge" },
+        { "data": { "source": "apiToken", "target": "exchangeOnline" }, "classes": "edge" },
+        { "data": { "source": "apiToken", "target": "azureCoreManagement" }, "classes": "edge" },
+        { "data": { "source": "apiToken", "target": "teams" }, "classes": "edge" },
+        { "data": { "source": "apiToken", "target": "manipulationTokens" }, "classes": "edge" },
+        { "data": { "source": "apiToken", "target": "oneDrive" }, "classes": "edge" }
+    ],
+    "aadGraph": [
+        { "data": { "id": "saveTokenInCache", "title": "Save token in cache", "description": "", "command": "Get-AADIntAccessTokenForAADGraph", "reference": "https://aadinternals.com/aadinternals/", "category": false, "ifSuccussed": "Please Take a look in username & password options (since now you have valid authentication)" }, "classes": "node-normal" },
+        { "data": { "source": "aadGraph", "target": "saveTokenInCache" }, "classes": "edge" }
+    ],
+    "azureAdminPortal": [
+        { "data": { "id": "addAccessToken", "title": "Add Access Token", "description": "Add Access token to cache (Azure admin portal)", "command": "Get-AADIntAccessTokenForAADIAMAPI", "reference": "https://aadinternals.com/aadinternals/", "category": false, "ifSuccussed": "Please Take a look in username & password options (since now you have valid authentication)" }, "classes": "node-normal" },
+        { "data": { "source": "azureAdminPortal", "target": "addAccessToken" }, "classes": "edge" }
+    ],
+    "exchangeOnline": [
+        { "data": { "id": "opensOwaInBrowser", "title": "Opens OWA in a browser", "description": "Opens OWA in a browser control window as the given user.", "command": "Get-AADIntAccessTokenForEXO -Resource \"https://outlook.office.com\" -SaveToCache", "reference": "https://aadinternals.com/aadinternals/", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "exchangeOnline", "target": "opensOwaInBrowser" }, "classes": "edge" }
+    ],
+    "azureCoreManagement": [
+        { "data": { "id": "accessTokenForAzureCoreManagement", "title": "Access Token For Azure Core Management", "description": "Used with Azure Core Management functions", "command": "Get-AADIntAccessTokenForAzureCoreManagement", "reference": "https://aadinternals.com/aadinternals/", "category": false, "ifSuccussed": "Please Take a look in username & password options (since now you have valid authentication)" }, "classes": "node-normal" },
+        { "data": { "source": "azureCoreManagement", "target": "accessTokenForAzureCoreManagement" }, "classes": "edge" }
+    ],
+    "teams": [
+        { "data": { "id": "getAccessTokenForTeams", "title": "Get Access token for teams", "description": "Get Access token for Teams actions", "command": "Get-AADIntAccessTokenForTeams", "reference": "https://aadinternals.com/aadinternals/", "category": false, "ifSuccussed": "Please Check LOOT options under Username & Password option (since now you have valid authentication)" }, "classes": "node-normal" },
+        { "data": { "source": "teams", "target": "getAccessTokenForTeams" }, "classes": "edge" }
+    ],
+    "getAccessTokenForTeams": [
+        { "data": { "id": "getTeamsMessages", "title": "Get Teams messages", "description": "Get Teams messages", "command": "Get-AADIntTeamsMessages | Format-Table id,content,deletiontime,*type*,DisplayName", "reference": "https://aadinternals.com/aadinternals/#get-aadintteamsmessages-t", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "getSkypeToken", "title": "Get SkypeToken", "description": "Gets SkypeToken used for authentication for certain Teams services.", "command": "$skypeToken = Get-AADIntSkypeToken", "reference": "https://aadinternals.com/aadinternals/#get-aadintskypetoken-t", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "getTeamsOfUser", "title": "Get teams of user", "description": "Returns all teams the user is member of.", "command": "Get-AADIntMyTeams", "reference": "https://aadinternals.com/aadinternals/#get-aadintmyteams-t", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "getAccessTokenForTeams", "target": "getTeamsMessages" }, "classes": "edge" },
+        { "data": { "source": "getAccessTokenForTeams", "target": "getSkypeToken" }, "classes": "edge" },
+        { "data": { "source": "getAccessTokenForTeams", "target": "getTeamsOfUser" }, "classes": "edge" }
+    ],
+    "oneDrive": [
+        { "data": { "id": "oneDriveFilesAndFolders", "title": "OneDrive files and folders", "description": "Retrieve files and folders from OneDrive using Microsoft Graph API", "command": "curl -X GET -H \"Authorization: Bearer $TOKEN\" \"https://graph.microsoft.com/v1.0/me/drive/root/children\"", "reference": "https://docs.microsoft.com/en-us/graph/api/driveitem-list-children?view=graph-rest-1.0&tabs=http", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "oneDrive", "target": "oneDriveFilesAndFolders" }, "classes": "edge" }
+    ]
+}

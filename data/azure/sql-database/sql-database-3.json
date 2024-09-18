@@ -1,0 +1,48 @@
+{
+    "title": "Exploit SQL Firewall Rules to Gain Access",
+    "icon": "https://img.icons8.com/?size=100&id=10469&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List SQL Servers",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/server.png",
+            "details": {
+                "command": "az sql server list --resource-group <ResourceGroupName>",
+                "description": "Lists all SQL servers in the specified resource group.",
+                "services": ["SQLServer"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/sql/server?view=azure-cli-latest#az-sql-server-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Add Firewall Rule",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/firewall.png",
+            "details": {
+                "command": "az sql server firewall-rule create --resource-group <ResourceGroupName> --server <ServerName> --name <RuleName> --start-ip-address <StartIPAddress> --end-ip-address <EndIPAddress>",
+                "description": "Creates a firewall rule to allow access to the specified SQL server.",
+                "services": ["SQLServer"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/sql/server/firewall-rule?view=azure-cli-latest#az-sql-server-firewall-rule-create"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access SQL Database",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/database.png",
+            "details": {
+                "command": "sqlcmd -S <ServerName>.database.windows.net -d <DatabaseName> -U <Username> -P <Password>",
+                "description": "Accesses the specified SQL database using sqlcmd.",
+                "services": ["SQLDatabase"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-ver15"
+            }
+        }
+    ]
+}

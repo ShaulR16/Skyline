@@ -1,0 +1,58 @@
+{
+    "title": "Exploit Cloud Monitoring Logs for Sensitive Data Access",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Monitoring Logs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud alpha logging read 'resource.type=global'",
+                "description": "Lists all Cloud Monitoring logs in the specified GCP project.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/logging/docs/reference/tools/gcloud-logging"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Monitoring Log",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "gcloud alpha logging read 'logName=projects/<ProjectID>/logs/<LogName>'",
+                "description": "Describes the specified Cloud Monitoring log to find sensitive data.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/logging/docs/reference/tools/gcloud-logging"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Analyze Log Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/analysis.png",
+            "details": {
+                "command": "Review and analyze log data for sensitive information",
+                "description": "Analyzes the Cloud Monitoring log data to find and extract sensitive information.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Sensitive Data Exposure"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Extract Sensitive Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/extract.png",
+            "details": {
+                "command": "Extract identified sensitive data from logs",
+                "description": "Extracts the sensitive data found in the Cloud Monitoring logs.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

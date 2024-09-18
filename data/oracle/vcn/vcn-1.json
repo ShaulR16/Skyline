@@ -1,0 +1,59 @@
+{
+    "title": "Exploit Virtual Cloud Network Misconfiguration for Unauthorized Network Access",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List VCNs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "oci network vcn list --compartment-id <compartmentId>",
+                "description": "Lists all virtual cloud networks in the specified compartment.",
+                "services": ["VCN"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/iaas/20160918/Vcn/ListVcns"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe VCN",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "oci network vcn get --vcn-id <vcnId>",
+                "description": "Describes the specified virtual cloud network to find misconfigurations.",
+                "services": ["VCN"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/iaas/20160918/Vcn/GetVcn"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify VCN Security Rules",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/modify.png",
+            "details": {
+                "command": "oci network security-list update --security-list-id <securityListId> --egress-security-rules '[]' --ingress-security-rules '[]'",
+                "description": "Modifies the VCN security rules to allow unauthorized network access.",
+                "services": ["VCN"],
+                "attack_types": ["Unauthorized Access"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/iaas/20160918/SecurityList/UpdateSecurityList"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Access Network Resources",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/access.png",
+            "details": {
+                "command": "Access resources within the VCN using modified security rules",
+                "description": "Gains unauthorized access to resources within the VCN.",
+                "services": ["VCN"],
+                "attack_types": ["Unauthorized Access"]
+            }
+        }
+    ]
+}

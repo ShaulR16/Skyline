@@ -1,0 +1,48 @@
+{
+    "title": "Exploit RDS Database Log Export to Access Sensitive Data",
+    "icon": "https://img.icons8.com/?size=100&id=RifxBTL2fPXI&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List RDS Instances",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws rds describe-db-instances",
+                "description": "Lists all RDS instances in the specified region.",
+                "services": ["RDS"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-instances.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "List RDS Logs",
+            "icon": "https://img.icons8.com/?size=100&id=10235&format=png&color=000000",
+            "details": {
+                "command": "aws rds describe-db-log-files --db-instance-identifier <DBInstanceIdentifier>",
+                "description": "Lists all log files for the specified RDS instance.",
+                "services": ["RDS"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-log-files.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Download RDS Log File",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/download.png",
+            "details": {
+                "command": "aws rds download-db-log-file-portion --db-instance-identifier <DBInstanceIdentifier> --log-file-name <LogFileName> --starting-token 0",
+                "description": "Downloads the specified log file from the RDS instance.",
+                "services": ["RDS"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/rds/download-db-log-file-portion.html"
+            }
+        }
+    ]
+}

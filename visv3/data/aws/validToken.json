@@ -1,0 +1,113 @@
+{
+    "elements": [
+        { "data": { "id": "root", "title": "AWS", "description": "AWS cloud provider", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-attacker" },
+        { "data": { "id": "validToken", "title": "Valid Token For Services", "description": "Use valid token for authentication", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "apiToken", "title": "API Token", "description": "Explore API Token techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "iamRoles", "title": "IAM Roles", "description": "Explore IAM Roles techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "awsCliAccess", "title": "AWS CLI Access", "description": "Explore AWS CLI access techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "cloudWatch", "title": "CloudWatch", "description": "Explore CloudWatch techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "s3Access", "title": "S3 Access", "description": "Explore S3 access techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "ec2Access", "title": "EC2 Access", "description": "Explore EC2 access techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "lambdaFunctions", "title": "Lambda Functions", "description": "Explore Lambda function techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "rdsAccess", "title": "RDS Access", "description": "Explore RDS access techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "networkRecon", "title": "Network Reconnaissance", "description": "Explore Network Reconnaissance techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "cloudTrail", "title": "CloudTrail", "description": "Explore CloudTrail techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "glue", "title": "AWS Glue", "description": "Explore AWS Glue techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "cloudFormation", "title": "CloudFormation", "description": "Explore CloudFormation techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "root", "target": "validToken" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "apiToken" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "iamRoles" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "awsCliAccess" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "cloudWatch" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "s3Access" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "ec2Access" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "lambdaFunctions" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "rdsAccess" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "networkRecon" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "cloudTrail" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "glue" }, "classes": "edge" },
+        { "data": { "source": "validToken", "target": "cloudFormation" }, "classes": "edge" }
+    ],
+    "apiToken": [
+        { "data": { "id": "storeAccessToken", "title": "Store Access Token", "description": "Prompt for credentials and retrieve & store access token to cache", "command": "aws configure", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html", "category": false, "ifSuccussed": "If succeeded - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "source": "apiToken", "target": "storeAccessToken" }, "classes": "edge" }
+    ],
+    "iamRoles": [
+        { "data": { "id": "assumeRole", "title": "Assume Role", "description": "Assume an IAM role", "command": "aws sts assume-role --role-arn <role-arn> --role-session-name <session-name>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html", "category": false, "ifSuccussed": "If succeeded - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "listRoles", "title": "List Roles", "description": "List all IAM roles", "command": "aws iam list-roles", "reference": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-roles.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "createRole", "title": "Create Role", "description": "Create a new IAM role", "command": "aws iam create-role --role-name <role-name> --assume-role-policy-document file://policy.json", "reference": "https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "iamRoles", "target": "assumeRole" }, "classes": "edge" },
+        { "data": { "source": "iamRoles", "target": "listRoles" }, "classes": "edge" },
+        { "data": { "source": "iamRoles", "target": "createRole" }, "classes": "edge" }
+    ],
+    "awsCliAccess": [
+        { "data": { "id": "configureAwsCli", "title": "Configure AWS CLI", "description": "Configure AWS CLI with access keys", "command": "aws configure", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html", "category": false, "ifSuccussed": "If succeeded - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "listCliProfiles", "title": "List CLI Profiles", "description": "List all configured AWS CLI profiles", "command": "aws configure list-profiles", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html", "category": false, "ifSuccussed": "If succeeded - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "stsGetCallerIdentity", "title": "Get Caller Identity", "description": "Retrieve the AWS account ID, user ID, and ARN", "command": "aws sts get-caller-identity", "reference": "https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html", "category": false, "ifSuccussed": "Verify the current identity and access level" }, "classes": "node-normal" },
+        { "data": { "source": "awsCliAccess", "target": "configureAwsCli" }, "classes": "edge" },
+        { "data": { "source": "awsCliAccess", "target": "listCliProfiles" }, "classes": "edge" },
+        { "data": { "source": "awsCliAccess", "target": "stsGetCallerIdentity" }, "classes": "edge" }
+    ],
+    "cloudWatch": [
+        { "data": { "id": "listMetrics", "title": "List Metrics", "description": "List available CloudWatch metrics", "command": "aws cloudwatch list-metrics", "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/list-metrics.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "getMetricData", "title": "Get Metric Data", "description": "Retrieve CloudWatch metric data", "command": "aws cloudwatch get-metric-data --metric-data-queries <metric-data-queries>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/get-metric-data.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "cloudWatch", "target": "listMetrics" }, "classes": "edge" },
+        { "data": { "source": "cloudWatch", "target": "getMetricData" }, "classes": "edge" }
+    ],
+    "s3Access": [
+        { "data": { "id": "listBuckets", "title": "List Buckets", "description": "List all S3 buckets", "command": "aws s3 ls", "reference": "https://docs.aws.amazon.com/cli/latest/reference/s3/ls.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "listObjects", "title": "List Objects", "description": "List objects in an S3 bucket", "command": "aws s3 ls s3://<bucket-name>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/s3/ls.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "downloadObject", "title": "Download Object", "description": "Download an object from an S3 bucket", "command": "aws s3 cp s3://<bucket-name>/<object-key> <local-file-path>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html", "category": false, "ifSuccussed": "If succeeded - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "source": "s3Access", "target": "listBuckets" }, "classes": "edge" },
+        { "data": { "source": "s3Access", "target": "listObjects" }, "classes": "edge" },
+        { "data": { "source": "s3Access", "target": "downloadObject" }, "classes": "edge" }
+    ],
+    "ec2Access": [
+        { "data": { "id": "describeInstances", "title": "Describe Instances", "description": "Retrieve information about EC2 instances", "command": "aws ec2 describe-instances", "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "startInstance", "title": "Start Instance", "description": "Start an EC2 instance", "command": "aws ec2 start-instances --instance-ids <instance-id>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/start-instances.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "stopInstance", "title": "Stop Instance", "description": "Stop an EC2 instance", "command": "aws ec2 stop-instances --instance-ids <instance-id>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/stop-instances.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "runCommand", "title": "Run Command on Instance", "description": "Run a command on an EC2 instance", "command": "aws ssm send-command --instance-ids <instance-id> --document-name <document-name> --parameters <parameters>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/ssm/send-command.html", "category": false, "ifSuccussed": "You have Code execution on the instance" }, "classes": "node-normal" },
+        { "data": { "source": "ec2Access", "target": "describeInstances" }, "classes": "edge" },
+        { "data": { "source": "ec2Access", "target": "startInstance" }, "classes": "edge" },
+        { "data": { "source": "ec2Access", "target": "stopInstance" }, "classes": "edge" },
+        { "data": { "source": "ec2Access", "target": "runCommand" }, "classes": "edge" }
+    ],
+    "lambdaFunctions": [
+        { "data": { "id": "listFunctions", "title": "List Functions", "description": "List all Lambda functions", "command": "aws lambda list-functions", "reference": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-functions.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "invokeFunction", "title": "Invoke Function", "description": "Invoke a specific Lambda function", "command": "aws lambda invoke --function-name <function-name> outputfile.txt", "reference": "https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "lambdaFunctions", "target": "listFunctions" }, "classes": "edge" },
+        { "data": { "source": "lambdaFunctions", "target": "invokeFunction" }, "classes": "edge" }
+    ],
+    "rdsAccess": [
+        { "data": { "id": "describeDbInstances", "title": "Describe DB Instances", "description": "Retrieve information about RDS instances", "command": "aws rds describe-db-instances", "reference": "https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-instances.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "connectDbInstance", "title": "Connect to DB Instance", "description": "Connect to an RDS instance", "command": "mysql -h <db-instance-endpoint> -P 3306 -u <username> -p", "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html", "category": false, "ifSuccussed": "If succeeded - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "source": "rdsAccess", "target": "describeDbInstances" }, "classes": "edge" },
+        { "data": { "source": "rdsAccess", "target": "connectDbInstance" }, "classes": "edge" }
+    ],
+    "networkRecon": [
+        { "data": { "id": "describeVpcs", "title": "Describe VPCs", "description": "Retrieve information about VPCs", "command": "aws ec2 describe-vpcs", "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "describeSecurityGroups", "title": "Describe Security Groups", "description": "Retrieve information about security groups", "command": "aws ec2 describe-security-groups", "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "describeRouteTables", "title": "Describe Route Tables", "description": "Retrieve information about route tables", "command": "aws ec2 describe-route-tables", "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-route-tables.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "networkRecon", "target": "describeVpcs" }, "classes": "edge" },
+        { "data": { "source": "networkRecon", "target": "describeSecurityGroups" }, "classes": "edge" },
+        { "data": { "source": "networkRecon", "target": "describeRouteTables" }, "classes": "edge" }
+    ],
+    "cloudTrail": [
+        { "data": { "id": "describeTrails", "title": "Describe Trails", "description": "Retrieve information about CloudTrail trails", "command": "aws cloudtrail describe-trails", "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/describe-trails.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "lookupEvents", "title": "Lookup Events", "description": "Retrieve CloudTrail events", "command": "aws cloudtrail lookup-events", "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/lookup-events.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "cloudTrail", "target": "describeTrails" }, "classes": "edge" },
+        { "data": { "source": "cloudTrail", "target": "lookupEvents" }, "classes": "edge" }
+    ],
+    "glue": [
+        { "data": { "id": "listCrawlers", "title": "List Crawlers", "description": "Retrieve information about AWS Glue crawlers", "command": "aws glue list-crawlers", "reference": "https://docs.aws.amazon.com/cli/latest/reference/glue/list-crawlers.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "listJobs", "title": "List Jobs", "description": "Retrieve information about AWS Glue jobs", "command": "aws glue list-jobs", "reference": "https://docs.aws.amazon.com/cli/latest/reference/glue/list-jobs.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "glue", "target": "listCrawlers" }, "classes": "edge" },
+        { "data": { "source": "glue", "target": "listJobs" }, "classes": "edge" }
+    ],
+    "cloudFormation": [
+        { "data": { "id": "listStacks", "title": "List Stacks", "description": "Retrieve information about CloudFormation stacks", "command": "aws cloudformation list-stacks", "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudformation/list-stacks.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "describeStackResources", "title": "Describe Stack Resources", "description": "Retrieve information about CloudFormation stack resources", "command": "aws cloudformation describe-stack-resources --stack-name <stack-name>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resources.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "cloudFormation", "target": "listStacks" }, "classes": "edge" },
+        { "data": { "source": "cloudFormation", "target": "describeStackResources" }, "classes": "edge" }
+    ]
+}

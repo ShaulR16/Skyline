@@ -1,0 +1,24 @@
+{
+    "title": "Modify Blob Storage Access Policies",
+    "icon": "https://img.icons8.com/?size=100&id=10235&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Set Container ACL",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "az storage container set-permission --account-name <StorageAccountName> --name <ContainerName> --public-access container",
+                "description": "Sets the access level of the specified container to public.",
+                "services": ["BlobStorage"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/storage/container?view=azure-cli-latest#az-storage-container-set-permission"
+            }
+        }
+    ]
+}

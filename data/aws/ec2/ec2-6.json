@@ -1,0 +1,48 @@
+{
+    "title": "Exploit EC2 Security Group Rule to Open SSH Access",
+    "icon": "https://img.icons8.com/?size=100&id=45190&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Security Groups",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws ec2 describe-security-groups",
+                "description": "Lists all security groups in the specified region.",
+                "services": ["EC2"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Add Inbound Rule for SSH",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/add-rule.png",
+            "details": {
+                "command": "aws ec2 authorize-security-group-ingress --group-id <GroupId> --protocol tcp --port 22 --cidr 0.0.0.0/0",
+                "description": "Adds an inbound rule to the security group to allow SSH access from anywhere.",
+                "services": ["EC2"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/authorize-security-group-ingress.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "SSH into EC2 Instance",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/ssh.png",
+            "details": {
+                "command": "ssh -i <KeyFile.pem> ec2-user@<EC2InstanceIP>",
+                "description": "SSH into the EC2 instance using the added security group rule.",
+                "services": ["EC2"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html"
+            }
+        }
+    ]
+}

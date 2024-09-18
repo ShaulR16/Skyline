@@ -1,0 +1,48 @@
+{
+    "title": "Capture Network Traffic Using Packet Capture",
+    "icon": "https://img.icons8.com/?size=100&id=eyShSycUjhR9&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Network Watcher",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/eye.png",
+            "details": {
+                "command": "az network watcher list",
+                "description": "Lists all network watchers in the specified subscription.",
+                "services": ["NetworkWatcher"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/watcher?view=azure-cli-latest#az-network-watcher-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create Packet Capture",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/sniffer.png",
+            "details": {
+                "command": "az network watcher packet-capture create --resource-group <ResourceGroupName> --vm <VMName> --name <PacketCaptureName> --storage-account <StorageAccountName> --time-limit 60",
+                "description": "Creates a packet capture session on the specified virtual machine.",
+                "services": ["NetworkWatcher"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/watcher/packet-capture?view=azure-cli-latest#az-network-watcher-packet-capture-create"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Download Packet Capture",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/download.png",
+            "details": {
+                "command": "az network watcher packet-capture show --resource-group <ResourceGroupName> --location <Location> --name <PacketCaptureName>",
+                "description": "Downloads the packet capture file for analysis.",
+                "services": ["NetworkWatcher"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/watcher/packet-capture?view=azure-cli-latest#az-network-watcher-packet-capture-show"
+            }
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "title": "Exploit DynamoDB Role Misconfiguration to Access Data",
+    "icon": "https://img.icons8.com/?size=100&id=yhTsDHXiSGTY&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List IAM Roles",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws iam list-roles",
+                "description": "Lists all IAM roles in the specified AWS account.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-roles.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Role Policies",
+            "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+            "details": {
+                "command": "aws iam list-role-policies --role-name <RoleName>",
+                "description": "Gets the policies associated with the specified IAM role.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-role-policies.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Assume Role",
+            "icon": "https://img.icons8.com/?size=100&id=aHNFVxFPlGgt&format=png&color=000000",
+            "details": {
+                "command": "aws sts assume-role --role-arn <RoleArn> --role-session-name <SessionName>",
+                "description": "Assumes the specified IAM role to gain its permissions.",
+                "services": ["STS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Access DynamoDB Data",
+            "icon": "https://img.icons8.com/?size=100&id=13880&format=png&color=000000",
+            "details": {
+                "command": "aws dynamodb scan --table-name <TableName>",
+                "description": "Scans the specified DynamoDB table to read its data using the assumed role.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/scan.html"
+            }
+        }
+    ]
+}

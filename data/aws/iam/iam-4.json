@@ -1,0 +1,60 @@
+{
+    "title": "Exploit IAM Group Misconfiguration to Gain Access",
+    "icon": "https://img.icons8.com/?size=100&id=o3jkQExyzw0D&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List IAM Groups",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws iam list-groups",
+                "description": "Lists all IAM groups in the specified AWS account.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-groups.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get IAM Group Policies",
+            "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+            "details": {
+                "command": "aws iam list-group-policies --group-name <GroupName>",
+                "description": "Gets the inline policies associated with the specified IAM group.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-group-policies.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Attach Inline Policy to Group",
+            "icon": "https://img.icons8.com/?size=100&id=cm9Gz5FEsUDo&format=png&color=000000",
+            "details": {
+                "command": "aws iam put-group-policy --group-name <GroupName> --policy-name <PolicyName> --policy-document file://<PathToPolicyDocument>",
+                "description": "Attaches an inline policy to the specified IAM group to escalate privileges.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/put-group-policy.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Assume IAM Group Role",
+            "icon": "https://img.icons8.com/?size=100&id=aHNFVxFPlGgt&format=png&color=000000",
+            "details": {
+                "command": "aws sts assume-role --role-arn <RoleArn> --role-session-name <SessionName>",
+                "description": "Assumes the IAM group role to gain additional privileges.",
+                "services": ["STS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"
+            }
+        }
+    ]
+}

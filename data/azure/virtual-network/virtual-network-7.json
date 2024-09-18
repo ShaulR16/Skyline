@@ -1,0 +1,36 @@
+{
+    "title": "Exploit Public IP Address to Gain Access to Resources",
+    "icon": "https://img.icons8.com/?size=100&id=9934&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Public IP Addresses",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/ip-address.png",
+            "details": {
+                "command": "az network public-ip list --resource-group <ResourceGroupName>",
+                "description": "Lists all public IP addresses in the specified resource group.",
+                "services": ["Network"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/public-ip?view=azure-cli-latest#az-network-public-ip-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Associate Public IP Address",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/ip-address.png",
+            "details": {
+                "command": "az network nic ip-config update --resource-group <ResourceGroupName> --nic-name <NICName> --name <IPConfigName> --public-ip-address <PublicIPName>",
+                "description": "Associates a public IP address with a network interface to expose internal resources.",
+                "services": ["Network"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/nic/ip-config?view=azure-cli-latest#az-network-nic-ip-config-update"
+            }
+        }
+    ]
+}

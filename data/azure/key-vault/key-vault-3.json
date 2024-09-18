@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Insecure Configuration to Delete Key Vault Secrets",
+    "icon": "https://img.icons8.com/?size=100&id=UjIuz5y9599d&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Key Vault Secrets",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "az keyvault secret list --vault-name <VaultName>",
+                "description": "Lists all secrets in the specified Key Vault.",
+                "services": ["KeyVault"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest#az-keyvault-secret-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Delete Key Vault Secret",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/delete-file.png",
+            "details": {
+                "command": "az keyvault secret delete --vault-name <VaultName> --name <SecretName>",
+                "description": "Deletes a specified secret from the Azure Key Vault.",
+                "services": ["KeyVault"],
+                "attack_types": ["Destruction"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest#az-keyvault-secret-delete"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Purge Deleted Key Vault Secret",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/delete-forever.png",
+            "details": {
+                "command": "az keyvault secret purge --vault-name <VaultName> --name <SecretName>",
+                "description": "Permanently deletes a specified secret from the Azure Key Vault.",
+                "services": ["KeyVault"],
+                "attack_types": ["Destruction"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest#az-keyvault-secret-purge"
+            }
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+{
+    "title": "Exploit Lambda Layers to Inject Malicious Code",
+    "icon": "https://img.icons8.com/?size=100&id=32380&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Lambda Functions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws lambda list-functions",
+                "description": "Lists all Lambda functions in the specified region.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-functions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Lambda Layers",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/layers.png",
+            "details": {
+                "command": "aws lambda list-layers",
+                "description": "Lists all Lambda layers in the specified region.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-layers.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Create Malicious Lambda Layer",
+            "icon": "https://img.icons8.com/?size=100&id=gwCtIggD0YzS&format=png&color=000000",
+            "details": {
+                "command": "aws lambda publish-layer-version --layer-name <LayerName> --zip-file fileb://<PathToZipFile>",
+                "description": "Creates a malicious Lambda layer to inject code.",
+                "services": ["Lambda"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/publish-layer-version.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Attach Malicious Layer to Lambda Function",
+            "icon": "https://img.icons8.com/?size=100&id=cm9Gz5FEsUDo&format=png&color=000000",
+            "details": {
+                "command": "aws lambda update-function-configuration --function-name <FunctionName> --layers <LayerArn>",
+                "description": "Attaches the malicious Lambda layer to the specified Lambda function.",
+                "services": ["Lambda"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/update-function-configuration.html"
+            }
+        },
+        {
+            "id": 6,
+            "label": "Invoke Lambda Function with Malicious Layer",
+            "icon": "https://img.icons8.com/?size=100&id=unQmmZhzTtwW&format=png&color=000000",
+            "details": {
+                "command": "aws lambda invoke --function-name <FunctionName> out.txt",
+                "description": "Invokes the Lambda function to execute the code from the malicious layer.",
+                "services": ["Lambda"],
+                "attack_types": ["Code Execution"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html"
+            }
+        }
+    ]
+}

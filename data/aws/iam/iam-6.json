@@ -1,0 +1,47 @@
+{
+    "title": "Exploit IAM Access Keys to Gain Access",
+    "icon": "https://img.icons8.com/?size=100&id=o3jkQExyzw0D&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List IAM Access Keys",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "aws iam list-access-keys --user-name <UserName>",
+                "description": "Lists the access keys for the specified IAM user.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-access-keys.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create New Access Key",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/add-key.png",
+            "details": {
+                "command": "aws iam create-access-key --user-name <UserName>",
+                "description": "Creates a new access key for the specified IAM user.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/create-access-key.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Use Access Key to Gain Access",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "aws configure set aws_access_key_id <AccessKeyId> && aws configure set aws_secret_access_key <SecretAccessKey>",
+                "description": "Uses the new access key to configure AWS CLI and gain access.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"]
+            }
+        }
+    ]
+}

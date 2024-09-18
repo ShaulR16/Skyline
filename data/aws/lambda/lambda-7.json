@@ -1,0 +1,72 @@
+{
+    "title": "Exploit Lambda Execution Role Policy to Gain Access",
+    "icon": "https://img.icons8.com/?size=100&id=32380&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Lambda Functions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws lambda list-functions",
+                "description": "Lists all Lambda functions in the specified region.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-functions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Lambda Execution Role",
+            "icon": "https://img.icons8.com/?size=100&id=33424&format=png&color=000000",
+            "details": {
+                "command": "aws lambda get-function-configuration --function-name <FunctionName>",
+                "description": "Retrieves the execution role of the specified Lambda function.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/get-function-configuration.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Get Execution Role Policy",
+            "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+            "details": {
+                "command": "aws iam get-role-policy --role-name <RoleName> --policy-name <PolicyName>",
+                "description": "Retrieves the policy of the Lambda execution role.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/get-role-policy.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Modify Execution Role Policy",
+            "icon": "https://img.icons8.com/?size=100&id=10456&format=png&color=000000",
+            "details": {
+                "command": "aws iam put-role-policy --role-name <RoleName> --policy-name <PolicyName> --policy-document file://<PathToPolicyDocument>",
+                "description": "Modifies the policy of the Lambda execution role to gain additional access.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html"
+            }
+        },
+        {
+            "id": 6,
+            "label": "Assume Execution Role with Modified Policy",
+            "icon": "https://img.icons8.com/?size=100&id=8837&format=png&color=000000",
+            "details": {
+                "command": "aws sts assume-role --role-arn <RoleArn> --role-session-name <SessionName>",
+                "description": "Assumes the Lambda execution role with the modified policy to gain additional privileges.",
+                "services": ["STS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"
+            }
+        }
+    ]
+}

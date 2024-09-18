@@ -1,0 +1,60 @@
+{
+    "title": "Exploit Lambda Triggers to Access Sensitive Data",
+    "icon": "https://img.icons8.com/?size=100&id=32380&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Lambda Functions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws lambda list-functions",
+                "description": "Lists all Lambda functions in the specified region.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-functions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Lambda Triggers",
+            "icon": "https://img.icons8.com/?size=100&id=ILEvXBZfvA5H&format=png&color=000000",
+            "details": {
+                "command": "aws lambda get-event-source-mappings --function-name <FunctionName>",
+                "description": "Gets the event source mappings (triggers) for the specified Lambda function.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/get-event-source-mappings.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify Lambda Function to Log Sensitive Data",
+            "icon": "https://img.icons8.com/?size=100&id=10235&format=png&color=000000",
+            "details": {
+                "command": "aws lambda update-function-code --function-name <FunctionName> --zip-file fileb://<PathToZipFile>",
+                "description": "Modifies the Lambda function code to log sensitive data from triggers.",
+                "services": ["Lambda"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/update-function-code.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Invoke Lambda Function via Trigger",
+            "icon": "https://img.icons8.com/?size=100&id=gwCtIggD0YzS&format=png&color=000000",
+            "details": {
+                "command": "aws lambda invoke --function-name <FunctionName> out.txt",
+                "description": "Invokes the Lambda function via its triggers to access and log sensitive data.",
+                "services": ["Lambda"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html"
+            }
+        }
+    ]
+}

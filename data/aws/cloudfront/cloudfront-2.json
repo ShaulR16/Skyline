@@ -1,0 +1,60 @@
+{
+    "title": "Exploit CloudFront Logging to Gather Sensitive Data",
+    "icon": "https://img.icons8.com/?size=100&id=dNP4y1fLlCKR&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List CloudFront Distributions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws cloudfront list-distributions",
+                "description": "Lists all CloudFront distributions in the specified AWS account.",
+                "services": ["CloudFront"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/list-distributions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Distribution Config",
+            "icon": "https://img.icons8.com/?size=100&id=17MmKMAahjE9&format=png&color=000000",
+            "details": {
+                "command": "aws cloudfront get-distribution-config --id <DistributionId>",
+                "description": "Gets the configuration of the specified CloudFront distribution.",
+                "services": ["CloudFront"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/get-distribution-config.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Enable Logging for Distribution",
+            "icon": "https://img.icons8.com/?size=100&id=O0XspjhwnsH8&format=png&color=000000",
+            "details": {
+                "command": "aws cloudfront update-distribution --id <DistributionId> --distribution-config file://<PathToLoggingConfig>",
+                "description": "Enables logging for the specified CloudFront distribution to gather sensitive data.",
+                "services": ["CloudFront"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/update-distribution.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Access Logs from S3",
+            "icon": "https://img.icons8.com/?size=100&id=30891&format=png&color=000000",
+            "details": {
+                "command": "aws s3 cp s3://<LogBucket>/<LogFile> .",
+                "description": "Accesses the CloudFront logs from the specified S3 bucket.",
+                "services": ["CloudFront", "S3"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html"
+            }
+        }
+    ]
+}

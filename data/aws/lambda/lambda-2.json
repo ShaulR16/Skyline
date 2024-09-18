@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Lambda Execution Role to Gain Privileges",
+    "icon": "https://img.icons8.com/?size=100&id=32380&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Lambda Functions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws lambda list-functions",
+                "description": "Lists all Lambda functions in the specified region.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-functions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Lambda Execution Role",
+            "icon": "https://img.icons8.com/?size=100&id=30891&format=png&color=000000",
+            "details": {
+                "command": "aws lambda get-function-configuration --function-name <FunctionName>",
+                "description": "Retrieves the execution role of the specified Lambda function.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/get-function-configuration.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Assume Execution Role",
+            "icon": "https://img.icons8.com/?size=100&id=30891&format=png&color=000000",
+            "details": {
+                "command": "aws sts assume-role --role-arn <RoleArn> --role-session-name <SessionName>",
+                "description": "Assumes the Lambda execution role to gain its privileges.",
+                "services": ["STS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"
+            }
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "title": "Exploit Cloud Function Triggers for Unauthorized Access",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Cloud Functions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud functions list",
+                "description": "Lists all Cloud Functions in the specified GCP project.",
+                "services": ["Cloud Functions"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/functions/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Cloud Function",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "gcloud functions describe <FunctionName>",
+                "description": "Describes the specified Cloud Function to find its triggers.",
+                "services": ["Cloud Functions"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/functions/describe"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Trigger Unauthorized Function",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/trigger.png",
+            "details": {
+                "command": "curl https://<FunctionTriggerURL>",
+                "description": "Triggers the Cloud Function using an unauthorized method.",
+                "services": ["Cloud Functions"],
+                "attack_types": ["Unauthorized Access"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Analyze Function Output",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/analysis.png",
+            "details": {
+                "command": "Review and analyze the output of the triggered function",
+                "description": "Analyzes the output of the unauthorized function trigger for sensitive data.",
+                "services": ["Cloud Functions"],
+                "attack_types": ["Sensitive Data Exposure"]
+            }
+        }
+    ]
+}

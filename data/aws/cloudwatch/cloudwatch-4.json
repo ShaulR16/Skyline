@@ -1,0 +1,59 @@
+{
+    "title": "Exploit CloudWatch Dashboards for Sensitive Data Exposure",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Dashboards",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws cloudwatch list-dashboards",
+                "description": "Lists all CloudWatch dashboards in the specified AWS account.",
+                "services": ["CloudWatch"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/list-dashboards.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Dashboard",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/dashboard.png",
+            "details": {
+                "command": "aws cloudwatch get-dashboard --dashboard-name <DashboardName>",
+                "description": "Gets the specified CloudWatch dashboard.",
+                "services": ["CloudWatch"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/get-dashboard.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Analyze Dashboard for Sensitive Data",
+            "icon": "https://img.icons8.com/?size=100&id=10576&format=png&color=000000",
+            "details": {
+                "command": "jq '.widgets[].properties.metrics[]' dashboard.json",
+                "description": "Analyzes the dashboard for sensitive information.",
+                "services": ["CloudWatch"],
+                "attack_types": ["Sensitive Data Exposure"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Export Dashboard Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/export.png",
+            "details": {
+                "command": "aws cloudwatch get-dashboard --dashboard-name <DashboardName> --query 'DashboardBody' --output text > dashboard.json",
+                "description": "Exports the dashboard data for further analysis.",
+                "services": ["CloudWatch"],
+                "attack_types": ["Sensitive Data Exposure"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/get-dashboard.html"
+            }
+        }
+    ]
+}

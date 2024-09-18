@@ -1,0 +1,59 @@
+{
+    "title": "Exploit VPC Flow Logs for Data Exfiltration",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List VPC Networks",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud compute networks list",
+                "description": "Lists all VPC networks in the specified GCP project.",
+                "services": ["VPC"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/networks/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe VPC Network",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "gcloud compute networks describe <NetworkName>",
+                "description": "Describes the specified VPC network to find VPC flow logs.",
+                "services": ["VPC"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/networks/describe"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Analyze VPC Flow Logs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/analysis.png",
+            "details": {
+                "command": "gcloud logging read 'resource.type=gce_subnetwork AND resource.labels.subnetwork_name=<SubnetworkName>'",
+                "description": "Analyzes the VPC flow logs to find sensitive data.",
+                "services": ["VPC"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://cloud.google.com/logging/docs/reference/tools/gcloud-logging"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Extract Sensitive Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/extract.png",
+            "details": {
+                "command": "Extract identified sensitive data from VPC flow logs",
+                "description": "Extracts the sensitive data found in the VPC flow logs.",
+                "services": ["VPC"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

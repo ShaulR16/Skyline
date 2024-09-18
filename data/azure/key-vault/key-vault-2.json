@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Key Vault Access Policies for Privilege Escalation",
+    "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Get Key Vault Access Policies",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/lambda.png",
+            "details": {
+                "command": "Get-AzKeyVault -VaultName <VaultName> | Select-Object -ExpandProperty AccessPolicies",
+                "description": "Retrieves the access policies of a specified Azure Key Vault.",
+                "services": ["KeyVault"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvault"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Modify Key Vault Access Policies",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "Set-AzKeyVaultAccessPolicy -VaultName <VaultName> -UserPrincipalName <UserPrincipalName> -PermissionsToKeys get, list, update, create, delete, recover, backup, restore",
+                "description": "Modifies the access policies of a specified Azure Key Vault to grant the attacker additional permissions.",
+                "services": ["KeyVault"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/powershell/module/az.keyvault/set-azkeyvaultaccesspolicy"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Key Vault Secrets",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "Get-AzKeyVaultSecret -VaultName <VaultName> -Name <SecretName>",
+                "description": "Retrieves secrets from the Azure Key Vault using the newly granted permissions.",
+                "services": ["KeyVault"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.microsoft.com/en-us/powershell/module/az.keyvault/get-azkeyvaultsecret"
+            }
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "title": "Delete Blob Storage Contents",
+    "icon": "https://img.icons8.com/?size=100&id=gjhtZ8keOudc&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Delete Blob",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/delete-file.png",
+            "details": {
+                "command": "az storage blob delete --account-name <StorageAccountName> --container-name <ContainerName> --name <BlobName>",
+                "description": "Deletes a blob from the specified container.",
+                "services": ["BlobStorage"],
+                "attack_types": ["Destruction"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-delete"
+            }
+        }
+    ]
+}

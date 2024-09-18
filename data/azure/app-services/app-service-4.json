@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Application Logging to Capture Sensitive Information",
+    "icon": "https://img.icons8.com/?size=100&id=10235&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List App Services",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/app.png",
+            "details": {
+                "command": "az webapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all app services in the specified resource group.",
+                "services": ["AppService"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az-webapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Configure Diagnostic Logs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/log.png",
+            "details": {
+                "command": "az webapp log config --resource-group <ResourceGroupName> --name <AppName> --application-logging true --web-server-logging filesystem",
+                "description": "Configures application logging to capture sensitive information.",
+                "services": ["AppService"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp/log?view=azure-cli-latest#az-webapp-log-config"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Log Files",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/log.png",
+            "details": {
+                "command": "az webapp log download --resource-group <ResourceGroupName> --name <AppName> --log-file <LogFileName>",
+                "description": "Downloads log files to access captured sensitive information.",
+                "services": ["AppService"],
+                "attack_types": ["Information Disclosure"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp/log?view=azure-cli-latest#az-webapp-log-download"
+            }
+        }
+    ]
+}

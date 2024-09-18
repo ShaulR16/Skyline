@@ -1,0 +1,59 @@
+{
+    "title": "Exploit VPC Network Misconfiguration for Unauthorized Access",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List VPC Networks",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud compute networks list",
+                "description": "Lists all VPC networks in the specified GCP project.",
+                "services": ["VPC"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/networks/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe VPC Network",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "gcloud compute networks describe <NetworkName>",
+                "description": "Describes the specified VPC network to find misconfigurations.",
+                "services": ["VPC"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/networks/describe"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Identify Misconfigured Firewall Rules",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/firewall.png",
+            "details": {
+                "command": "gcloud compute firewall-rules list --filter=\"network:<NetworkName>\"",
+                "description": "Identifies misconfigured firewall rules in the VPC network.",
+                "services": ["VPC"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/firewall-rules/list"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Access VPC Network",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/access.png",
+            "details": {
+                "command": "Use identified misconfigurations to access resources in the VPC network",
+                "description": "Exploits the misconfigured firewall rules to access resources in the VPC network.",
+                "services": ["VPC"],
+                "attack_types": ["Unauthorized Access"]
+            }
+        }
+    ]
+}

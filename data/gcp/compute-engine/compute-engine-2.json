@@ -1,0 +1,58 @@
+{
+    "title": "Exploit Compute Engine SSH Key Injection",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Instances",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud compute instances list",
+                "description": "Lists all Compute Engine instances in the specified GCP project.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Add SSH Key to Instance Metadata",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/ssh-key.png",
+            "details": {
+                "command": "gcloud compute instances add-metadata <InstanceName> --metadata ssh-keys='<Username>:<PublicKey>'",
+                "description": "Adds an SSH key to the instance metadata, allowing SSH access.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys"
+            }
+        },
+        {
+            "id": 4,
+            "label": "SSH into Instance",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/ssh.png",
+            "details": {
+                "command": "ssh <Username>@<InstanceExternalIP>",
+                "description": "SSH into the Compute Engine instance using the injected SSH key.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Remote Access"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Pivot to Other Instances",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/pivot.png",
+            "details": {
+                "command": "ssh <Username>@<OtherInstanceInternalIP>",
+                "description": "Uses the compromised instance to pivot to other instances in the network.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Lateral Movement"]
+            }
+        }
+    ]
+}

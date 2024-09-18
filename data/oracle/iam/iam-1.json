@@ -1,0 +1,59 @@
+{
+    "title": "Exploit IAM User Misconfiguration for Privilege Escalation",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List IAM Users",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "oci iam user list --compartment-id <compartmentId>",
+                "description": "Lists all IAM users in the specified compartment.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/identity/20160918/User/ListUsers"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe IAM User",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "oci iam user get --user-id <userId>",
+                "description": "Describes the specified IAM user to find misconfigurations.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/identity/20160918/User/GetUser"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify IAM User Policies",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/modify.png",
+            "details": {
+                "command": "oci iam policy update --policy-id <policyId> --statements '[\"Allow group <groupName> to manage all-resources in compartment <compartmentName>\"]'",
+                "description": "Modifies the IAM user policies to grant elevated privileges.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/identity/20160918/Policy/UpdatePolicy"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Use Elevated Privileges",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/use.png",
+            "details": {
+                "command": "Use the modified IAM policies to access restricted resources",
+                "description": "Gains unauthorized access to restricted resources using elevated privileges.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"]
+            }
+        }
+    ]
+}

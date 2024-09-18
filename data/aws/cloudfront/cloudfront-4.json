@@ -1,0 +1,59 @@
+{
+    "title": "Exploit CloudFront Origin Access Identity to Access Restricted Content",
+    "icon": "https://img.icons8.com/?size=100&id=dNP4y1fLlCKR&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List CloudFront Distributions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws cloudfront list-distributions",
+                "description": "Lists all CloudFront distributions in the specified AWS account.",
+                "services": ["CloudFront"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/list-distributions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Origin Access Identity",
+            "icon": "https://img.icons8.com/?size=100&id=wEmUuPVyoQub&format=png&color=000000",
+            "details": {
+                "command": "aws cloudfront list-cloud-front-origin-access-identities",
+                "description": "Lists all origin access identities for CloudFront distributions.",
+                "services": ["CloudFront"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/list-cloud-front-origin-access-identities.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Update S3 Bucket Policy",
+            "icon": "https://img.icons8.com/?size=100&id=jjoPDBNb5bi9&format=png&color=000000",
+            "details": {
+                "command": "aws s3api put-bucket-policy --bucket <BucketName> --policy file://<PathToPolicyDocument>",
+                "description": "Updates the S3 bucket policy to allow access from the CloudFront origin access identity.",
+                "services": ["S3"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-policy.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Access Restricted Content",
+            "icon": "https://img.icons8.com/?size=100&id=30891&format=png&color=000000",
+            "details": {
+                "command": "curl https://<CloudFrontDomainName>/<RestrictedContent>",
+                "description": "Accesses the restricted content using the CloudFront origin access identity.",
+                "services": ["CloudFront", "S3"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

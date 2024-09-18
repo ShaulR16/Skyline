@@ -1,0 +1,48 @@
+{
+    "title": "Exploit EC2 User Data to Run Malicious Scripts",
+    "icon": "https://img.icons8.com/?size=100&id=l4CaKoEhlkLK&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List EC2 Instances",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws ec2 describe-instances",
+                "description": "Lists all EC2 instances in the specified region.",
+                "services": ["EC2"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Instance User Data",
+            "icon": "https://img.icons8.com/?size=100&id=c24McMSKh9AS&format=png&color=000000",
+            "details": {
+                "command": "aws ec2 describe-instance-attribute --instance-id <InstanceId> --attribute userData",
+                "description": "Gets the user data of the specified EC2 instance.",
+                "services": ["EC2"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instance-attribute.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Run Malicious Script via User Data",
+            "icon": "https://img.icons8.com/?size=100&id=8837&format=png&color=000000",
+            "details": {
+                "command": "aws ec2 run-instances --image-id <ImageId> --instance-type <InstanceType> --user-data file://<PathToMaliciousScript>",
+                "description": "Runs a malicious script on the EC2 instance using user data.",
+                "services": ["EC2"],
+                "attack_types": ["Code Execution"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/run-instances.html"
+            }
+        }
+    ]
+}

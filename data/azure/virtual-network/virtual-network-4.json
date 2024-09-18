@@ -1,0 +1,36 @@
+{
+    "title": "Exploit Network Peering to Access Restricted Resources",
+    "icon": "https://img.icons8.com/?size=100&id=39353&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Virtual Networks",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/network.png",
+            "details": {
+                "command": "az network vnet list",
+                "description": "Lists all virtual networks in the specified subscription.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/vnet?view=azure-cli-latest#az-network-vnet-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create VNet Peering",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/peer-to-peer.png",
+            "details": {
+                "command": "az network vnet peering create --resource-group <ResourceGroupName> --name <PeeringName> --vnet-name <VNetName> --remote-vnet <RemoteVNetId> --allow-vnet-access",
+                "description": "Creates a VNet peering connection to access restricted resources in the remote VNet.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/vnet/peering?view=azure-cli-latest#az-network-vnet-peering-create"
+            }
+        }
+    ]
+}

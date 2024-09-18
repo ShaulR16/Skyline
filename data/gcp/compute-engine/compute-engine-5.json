@@ -1,0 +1,58 @@
+{
+    "title": "Exploit Compute Engine IAM Roles for Privilege Escalation",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List IAM Roles",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud iam roles list",
+                "description": "Lists all IAM roles in the specified GCP project.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/iam/roles/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Assign Privileged Role to Service Account",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/assign.png",
+            "details": {
+                "command": "gcloud projects add-iam-policy-binding <ProjectID> --member serviceAccount:<ServiceAccountEmail> --role roles/editor",
+                "description": "Assigns a privileged IAM role to the Compute Engine service account.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access Compute Engine with Privileged Role",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/access.png",
+            "details": {
+                "command": "gcloud compute ssh <InstanceName>",
+                "description": "Accesses a Compute Engine instance using the service account with the privileged role.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Remote Access"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Execute Privileged Commands",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/execute.png",
+            "details": {
+                "command": "gcloud compute instances create <NewInstanceName> --image-family debian-9 --image-project debian-cloud",
+                "description": "Uses the privileged role to execute commands on the Compute Engine instance.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Privilege Escalation"]
+            }
+        }
+    ]
+}

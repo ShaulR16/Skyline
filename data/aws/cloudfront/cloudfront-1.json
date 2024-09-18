@@ -1,0 +1,59 @@
+{
+    "title": "Exploit CloudFront Distribution to Serve Malicious Content",
+    "icon": "https://img.icons8.com/?size=100&id=dNP4y1fLlCKR&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List CloudFront Distributions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws cloudfront list-distributions",
+                "description": "Lists all CloudFront distributions in the specified AWS account.",
+                "services": ["CloudFront"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/list-distributions.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Distribution Config",
+            "icon": "https://img.icons8.com/?size=100&id=17MmKMAahjE9&format=png&color=000000",
+            "details": {
+                "command": "aws cloudfront get-distribution-config --id <DistributionId>",
+                "description": "Gets the configuration of the specified CloudFront distribution.",
+                "services": ["CloudFront"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/get-distribution-config.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Update Distribution to Serve Malicious Content",
+            "icon": "https://img.icons8.com/?size=100&id=11253&format=png&color=000000",
+            "details": {
+                "command": "aws cloudfront update-distribution --id <DistributionId> --distribution-config file://<PathToDistributionConfig>",
+                "description": "Updates the CloudFront distribution to serve malicious content.",
+                "services": ["CloudFront"],
+                "attack_types": ["Code Injection"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudfront/update-distribution.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Access Malicious Content",
+            "icon": "https://img.icons8.com/?size=100&id=8839&format=png&color=000000",
+            "details": {
+                "command": "curl https://<CloudFrontDomainName>",
+                "description": "Accesses the malicious content served by the modified CloudFront distribution.",
+                "services": ["CloudFront"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

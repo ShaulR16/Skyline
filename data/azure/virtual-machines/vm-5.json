@@ -1,0 +1,48 @@
+{
+    "title": "Snapshot VM Disk and Exfiltrate Data",
+    "icon": "https://img.icons8.com/?size=100&id=9914&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List VM Disks",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hard-disk.png",
+            "details": {
+                "command": "az disk list --resource-group <ResourceGroupName>",
+                "description": "Lists all disks in the specified resource group.",
+                "services": ["Disks"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/disk?view=azure-cli-latest#az-disk-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create Disk Snapshot",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/snapshot.png",
+            "details": {
+                "command": "az snapshot create --resource-group <ResourceGroupName> --source <DiskID> --name <SnapshotName>",
+                "description": "Creates a snapshot of the specified VM disk.",
+                "services": ["Disks"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/snapshot?view=azure-cli-latest#az-snapshot-create"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Export Snapshot",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/export.png",
+            "details": {
+                "command": "az snapshot grant-access --resource-group <ResourceGroupName> --name <SnapshotName> --duration-in-seconds 3600 --access-level Read",
+                "description": "Grants read access to the snapshot for data exfiltration.",
+                "services": ["Disks"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/snapshot?view=azure-cli-latest#az-snapshot-grant-access"
+            }
+        }
+    ]
+}

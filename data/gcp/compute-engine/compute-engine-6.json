@@ -1,0 +1,59 @@
+{
+    "title": "Exploit Compute Engine API to Stop and Start Instances",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Instances",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud compute instances list",
+                "description": "Lists all Compute Engine instances in the specified GCP project.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Stop Instance",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/stop.png",
+            "details": {
+                "command": "gcloud compute instances stop <InstanceName>",
+                "description": "Stops the specified Compute Engine instance.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Denial of Service"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/stop"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Start Instance",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/start.png",
+            "details": {
+                "command": "gcloud compute instances start <InstanceName>",
+                "description": "Starts the specified Compute Engine instance.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/start"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Execute Commands on Started Instance",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/execute.png",
+            "details": {
+                "command": "gcloud compute ssh <InstanceName> --command 'echo Hello World'",
+                "description": "Executes commands on the started Compute Engine instance.",
+                "services": ["Compute Engine"],
+                "attack_types": ["Remote Access"]
+            }
+        }
+    ]
+}

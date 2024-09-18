@@ -1,0 +1,58 @@
+{
+    "title": "Exploit Cloud SQL Logs for Sensitive Data Access",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Cloud SQL Instances",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud sql instances list",
+                "description": "Lists all Cloud SQL instances in the specified GCP project.",
+                "services": ["Cloud SQL"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/sql/instances/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Access Cloud SQL Logs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/logs.png",
+            "details": {
+                "command": "gcloud sql operations list --instance=<InstanceName>",
+                "description": "Lists all operations logs for the specified Cloud SQL instance.",
+                "services": ["Cloud SQL"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/sql/operations/list"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Analyze Logs for Sensitive Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/analysis.png",
+            "details": {
+                "command": "Review logs for sensitive data",
+                "description": "Analyzes the logs to find sensitive data.",
+                "services": ["Cloud SQL"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Extract Sensitive Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/extract.png",
+            "details": {
+                "command": "Extract identified sensitive data",
+                "description": "Extracts the sensitive data found in the Cloud SQL logs.",
+                "services": ["Cloud SQL"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

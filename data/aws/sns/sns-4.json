@@ -1,0 +1,59 @@
+{
+    "title": "Exploit SNS Email Sending Capability to Conduct Phishing Attacks",
+    "icon": "https://img.icons8.com/?size=100&id=54386&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List SNS Topics",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws sns list-topics",
+                "description": "Lists all SNS topics in the specified AWS account.",
+                "services": ["SNS"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sns/list-topics.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create SNS Topic",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/create.png",
+            "details": {
+                "command": "aws sns create-topic --name <TopicName>",
+                "description": "Creates a new SNS topic for sending phishing messages.",
+                "services": ["SNS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sns/create-topic.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Subscribe Email to Topic",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/subscribe.png",
+            "details": {
+                "command": "aws sns subscribe --topic-arn <TopicArn> --protocol email --notification-endpoint <Email>",
+                "description": "Subscribes an email address to the SNS topic.",
+                "services": ["SNS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sns/subscribe.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Send Phishing Email",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/send.png",
+            "details": {
+                "command": "aws sns publish --topic-arn <TopicArn> --message 'Phishing message'",
+                "description": "Sends a phishing email to the subscribed email address.",
+                "services": ["SNS"],
+                "attack_types": ["Phishing"]
+            }
+        }
+    ]
+}

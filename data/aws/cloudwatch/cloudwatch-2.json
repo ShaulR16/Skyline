@@ -1,0 +1,59 @@
+{
+    "title": "Exploit CloudWatch Alarms for Unauthorized Actions",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Alarms",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws cloudwatch describe-alarms",
+                "description": "Lists all CloudWatch alarms in the specified AWS account.",
+                "services": ["CloudWatch"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/describe-alarms.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Alarm History",
+            "icon": "https://img.icons8.com/?size=100&id=40401&format=png&color=000000",
+            "details": {
+                "command": "aws cloudwatch describe-alarm-history --alarm-name <AlarmName>",
+                "description": "Describes the history for the specified alarm.",
+                "services": ["CloudWatch"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/describe-alarm-history.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Set Alarm State",
+            "icon": "https://img.icons8.com/?size=100&id=pS1WUwhWSHEf&format=png&color=000000",
+            "details": {
+                "command": "aws cloudwatch set-alarm-state --alarm-name <AlarmName> --state-value ALARM --state-reason 'Testing'",
+                "description": "Sets the state of the specified alarm to trigger unauthorized actions.",
+                "services": ["CloudWatch"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/set-alarm-state.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Trigger Unauthorized Actions",
+            "icon": "https://img.icons8.com/?size=100&id=fFSUrvYUzJp5&format=png&color=000000",
+            "details": {
+                "command": "aws lambda invoke --function-name <FunctionName> --payload '<Payload>' response.json",
+                "description": "Triggers unauthorized actions using the alarm state change.",
+                "services": ["CloudWatch", "Lambda"],
+                "attack_types": ["Code Execution"]
+            }
+        }
+    ]
+}

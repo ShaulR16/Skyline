@@ -1,0 +1,36 @@
+{
+    "title": "Create Malicious Alert Rule",
+    "icon": "https://img.icons8.com/?size=100&id=31337&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Resource Groups",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/resource-group.png",
+            "details": {
+                "command": "az group list",
+                "description": "Lists all resource groups in the subscription.",
+                "services": ["ResourceGroups"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest#az-group-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create Malicious Alert",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/alert.png",
+            "details": {
+                "command": "az monitor metrics alert create --name <AlertName> --resource-group <ResourceGroupName> --scopes <ResourceID> --condition 'avg CPU > 90' --action '/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/microsoft.insights/actionGroups/<actionGroupName>'",
+                "description": "Creates a malicious alert rule that triggers an alert on a specific condition.",
+                "services": ["Monitor"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/monitor/metrics/alert?view=azure-cli-latest#az-monitor-metrics-alert-create"
+            }
+        }
+    ]
+}

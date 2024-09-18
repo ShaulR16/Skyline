@@ -1,0 +1,24 @@
+{
+    "title": "Upload Malicious File to Blob Storage",
+    "icon": "https://img.icons8.com/?size=100&id=nKegZWi3nYbf&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Upload Blob",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/upload.png",
+            "details": {
+                "command": "az storage blob upload --account-name <StorageAccountName> --container-name <ContainerName> --name <BlobName> --file <LocalFileName>",
+                "description": "Uploads a file to the specified blob storage container.",
+                "services": ["BlobStorage"],
+                "attack_types": ["Persistence"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-upload"
+            }
+        }
+    ]
+}

@@ -1,0 +1,47 @@
+{
+    "title": "Exploit VPC NAT Gateway Misconfiguration to Bypass Restrictions",
+    "icon": "https://img.icons8.com/?size=100&id=wNzRBdhcbwic&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List NAT Gateways",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws ec2 describe-nat-gateways",
+                "description": "Lists all NAT gateways in the specified region.",
+                "services": ["VPC"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-nat-gateways.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Modify NAT Gateway Route Table",
+            "icon": "https://img.icons8.com/?size=100&id=KeW1Bfa5sbVG&format=png&color=000000",
+            "details": {
+                "command": "aws ec2 replace-route --route-table-id <RouteTableId> --destination-cidr-block 0.0.0.0/0 --nat-gateway-id <NatGatewayId>",
+                "description": "Modifies the route table to route traffic through a misconfigured NAT gateway.",
+                "services": ["VPC"],
+                "attack_types": ["Traffic Manipulation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-route.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Bypass Network Restrictions",
+            "icon": "https://img.icons8.com/?size=100&id=gwiyACpuksO3&format=png&color=000000",
+            "details": {
+                "command": "curl http://example.com",
+                "description": "Bypasses network restrictions using the modified NAT gateway configuration.",
+                "services": ["VPC"],
+                "attack_types": ["Privilege Escalation"]
+            }
+        }
+    ]
+}

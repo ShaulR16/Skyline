@@ -1,0 +1,43 @@
+{
+    "elements": [
+        { "data": { "id": "root", "title": "AWS", "description": "AWS cloud provider", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-attacker" },
+        { "data": { "id": "onPremise", "title": "On-Premise", "description": "On-Premise environments", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "compromisedMachine", "title": "Compromised Machine", "description": "Compromised machine scenarios", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "root", "target": "onPremise" }, "classes": "edge" },
+        { "data": { "source": "onPremise", "target": "compromisedMachine" }, "classes": "edge" }
+    ],
+    "compromisedMachine": [
+        { "data": { "id": "localCloudCredentials", "title": "Local Cloud Credentials", "description": "Local cloud credentials", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "compromisedMachine", "target": "localCloudCredentials" }, "classes": "edge" }
+    ],
+    "localCloudCredentials": [
+        { "data": { "id": "awsCliConfigureList", "title": "AWS CLI Configure List", "description": "List the configuration and credentials for AWS CLI.", "command": "aws configure list", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "awsAccessKeys", "title": "AWS Access Keys", "description": "List the access keys for the AWS account.", "command": "aws iam list-access-keys --user-name <username>", "reference": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-access-keys.html", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "awsSessionToken", "title": "AWS Session Token", "description": "Get a session token for AWS CLI.", "command": "aws sts get-session-token", "reference": "https://docs.aws.amazon.com/cli/latest/reference/sts/get-session-token.html", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "id": "awsConfigFiles", "title": "Local AWS Config Files", "description": "Files in the AWS directory", "command": "dir C:\\Users\\<username>\\.aws", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html", "category": true, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "source": "localCloudCredentials", "target": "awsCliConfigureList" }, "classes": "edge" },
+        { "data": { "source": "localCloudCredentials", "target": "awsAccessKeys" }, "classes": "edge" },
+        { "data": { "source": "localCloudCredentials", "target": "awsSessionToken" }, "classes": "edge" },
+        { "data": { "source": "localCloudCredentials", "target": "awsConfigFiles" }, "classes": "edge" }
+    ],
+    "awsConfigFiles": [
+        { "data": { "id": "searchConfigFiles", "title": "Search for Configuration Files", "description": "Search for configuration files", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "searchEnvVariables", "title": "Search Environment Variables", "description": "Search for environment variables", "command": "", "reference": "", "category": true, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "hardcodedCredentials", "title": "Hardcoded Credentials", "description": "Look for scripts or code that might contain hardcoded credentials.", "command": "grep -r \"aws_access_key_id\" /path/to/scripts", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html", "category": false, "ifSuccussed": "If successed - check Valid Token options" }, "classes": "node-normal" },
+        { "data": { "source": "awsConfigFiles", "target": "searchConfigFiles" }, "classes": "edge" },
+        { "data": { "source": "awsConfigFiles", "target": "searchEnvVariables" }, "classes": "edge" },
+        { "data": { "source": "awsConfigFiles", "target": "hardcodedCredentials" }, "classes": "edge" }
+    ],
+    "searchConfigFiles": [
+        { "data": { "id": "linuxMacConfigFiles", "title": "Linux/MacOS", "description": "Search for AWS configuration files on Linux/MacOS.", "command": "cat ~/.aws/credentials | cat ~/.aws/config", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "windowsConfigFiles", "title": "Windows", "description": "Search for AWS configuration files on Windows.", "command": "type %USERPROFILE%\\.aws\\credentials | type %USERPROFILE%\\.aws\\config", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "searchConfigFiles", "target": "linuxMacConfigFiles" }, "classes": "edge" },
+        { "data": { "source": "searchConfigFiles", "target": "windowsConfigFiles" }, "classes": "edge" }
+    ],
+    "searchEnvVariables": [
+        { "data": { "id": "linuxMacEnvVariables", "title": "Linux/MacOS", "description": "Search for AWS environment variables on Linux/MacOS.", "command": "printenv | grep AWS", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "id": "windowsEnvVariables", "title": "Windows", "description": "Search for AWS environment variables on Windows.", "command": "Get-ChildItem Env: | Select-String -Pattern \"AWS\"", "reference": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html", "category": false, "ifSuccussed": "" }, "classes": "node-normal" },
+        { "data": { "source": "searchEnvVariables", "target": "linuxMacEnvVariables" }, "classes": "edge" },
+        { "data": { "source": "searchEnvVariables", "target": "windowsEnvVariables" }, "classes": "edge" }
+    ]
+}

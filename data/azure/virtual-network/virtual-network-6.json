@@ -1,0 +1,36 @@
+{
+    "title": "Exploit Network Security Group (NSG) to Allow Malicious Traffic",
+    "icon": "https://img.icons8.com/?size=100&id=38IXFLfy6Ist&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List NSGs",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/firewall.png",
+            "details": {
+                "command": "az network nsg list --resource-group <ResourceGroupName>",
+                "description": "Lists all network security groups in the specified resource group.",
+                "services": ["Network"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/nsg?view=azure-cli-latest#az-network-nsg-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Create NSG Rule",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/firewall.png",
+            "details": {
+                "command": "az network nsg rule create --resource-group <ResourceGroupName> --nsg-name <NSGName> --name <RuleName> --priority 100 --direction Inbound --access Allow --protocol '*' --source-address-prefix '*' --source-port-range '*' --destination-address-prefix '*' --destination-port-range '*'",
+                "description": "Creates a new NSG rule to allow malicious traffic into the virtual network.",
+                "services": ["Network"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/nsg/rule?view=azure-cli-latest#az-network-nsg-rule-create"
+            }
+        }
+    ]
+}

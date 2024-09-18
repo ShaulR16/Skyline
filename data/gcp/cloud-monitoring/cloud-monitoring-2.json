@@ -1,0 +1,58 @@
+{
+    "title": "Exploit Cloud Monitoring Dashboards for Sensitive Data Access",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Monitoring Dashboards",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud alpha monitoring dashboards list",
+                "description": "Lists all Cloud Monitoring dashboards in the specified GCP project.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.dashboards/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Monitoring Dashboard",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "gcloud alpha monitoring dashboards describe <DashboardID>",
+                "description": "Describes the specified Cloud Monitoring dashboard to find sensitive data.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.dashboards/get"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Analyze Dashboard Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/analysis.png",
+            "details": {
+                "command": "Review and analyze dashboard data for sensitive information",
+                "description": "Analyzes the Cloud Monitoring dashboard data to find and extract sensitive information.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Sensitive Data Exposure"]
+            }
+        },
+        {
+            "id": 5,
+            "label": "Extract Sensitive Data",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/extract.png",
+            "details": {
+                "command": "Extract identified sensitive data from dashboards",
+                "description": "Extracts the sensitive data found in the Cloud Monitoring dashboards.",
+                "services": ["Cloud Monitoring"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}

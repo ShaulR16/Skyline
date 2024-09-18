@@ -1,0 +1,60 @@
+{
+    "title": "Exploit IAM User Misconfiguration to Gain Access",
+    "icon": "https://img.icons8.com/?size=100&id=o3jkQExyzw0D&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List IAM Users",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "aws iam list-users",
+                "description": "Lists all IAM users in the specified AWS account.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-users.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Get IAM User Policies",
+            "icon": "https://img.icons8.com/?size=100&id=bpAPjyNopdSz&format=png&color=000000",
+            "details": {
+                "command": "aws iam list-user-policies --user-name <UserName>",
+                "description": "Gets the inline policies associated with the specified IAM user.",
+                "services": ["IAM"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-user-policies.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Attach Inline Policy to User",
+            "icon": "https://img.icons8.com/?size=100&id=cm9Gz5FEsUDo&format=png&color=000000",
+            "details": {
+                "command": "aws iam put-user-policy --user-name <UserName> --policy-name <PolicyName> --policy-document file://<PathToPolicyDocument>",
+                "description": "Attaches an inline policy to the specified IAM user to escalate privileges.",
+                "services": ["IAM"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/iam/put-user-policy.html"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Assume IAM User Role",
+            "icon": "https://img.icons8.com/?size=100&id=aHNFVxFPlGgt&format=png&color=000000",
+            "details": {
+                "command": "aws sts assume-role --role-arn <RoleArn> --role-session-name <SessionName>",
+                "description": "Assumes the IAM user role to gain additional privileges.",
+                "services": ["STS"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"
+            }
+        }
+    ]
+}

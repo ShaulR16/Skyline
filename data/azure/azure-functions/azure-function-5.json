@@ -1,0 +1,48 @@
+{
+    "title": "Exploit Managed Identity to Access Azure Resources",
+    "icon": "https://img.icons8.com/?size=100&id=3ChicLmOv5G9&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Function Apps",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "az functionapp list --resource-group <ResourceGroupName>",
+                "description": "Lists all function apps in the specified resource group.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/functionapp?view=azure-cli-latest#az-functionapp-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Enable Managed Identity",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/identity.png",
+            "details": {
+                "command": "az functionapp identity assign --resource-group <ResourceGroupName> --name <AppName>",
+                "description": "Enables a managed identity for the specified function app.",
+                "services": ["FunctionApp"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/functionapp/identity?view=azure-cli-latest#az-functionapp-identity-assign"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Use Managed Identity to Access Resources",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/resource.png",
+            "details": {
+                "command": "az keyvault secret show --name <SecretName> --vault-name <KeyVaultName> --auth-mode login",
+                "description": "Uses the managed identity to access secrets in Azure Key Vault.",
+                "services": ["KeyVault"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest#az-keyvault-secret-show"
+            }
+        }
+    ]
+}

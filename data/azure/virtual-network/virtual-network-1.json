@@ -1,0 +1,36 @@
+{
+    "title": "Enumerate and Modify Virtual Network",
+    "icon": "https://img.icons8.com/?size=100&id=lalV1z6lDBdj&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Virtual Networks",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/network.png",
+            "details": {
+                "command": "az network vnet list",
+                "description": "Lists all virtual networks in the specified subscription.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/vnet?view=azure-cli-latest#az-network-vnet-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Modify Virtual Network",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/network.png",
+            "details": {
+                "command": "az network vnet update --name <VNetName> --resource-group <ResourceGroupName> --address-prefixes <NewAddressPrefix>",
+                "description": "Modifies the address prefixes of the specified virtual network.",
+                "services": ["VirtualNetwork"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/network/vnet?view=azure-cli-latest#az-network-vnet-update"
+            }
+        }
+    ]
+}

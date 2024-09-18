@@ -1,0 +1,48 @@
+{
+    "title": "Start and Access Virtual Machine",
+    "icon": "https://img.icons8.com/?size=100&id=9seksX3sPpIT&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Virtual Machines",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/virtual-machine.png",
+            "details": {
+                "command": "az vm list",
+                "description": "Lists all virtual machines in the specified subscription.",
+                "services": ["VirtualMachines"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az-vm-list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Start VM",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/start.png",
+            "details": {
+                "command": "az vm start --name <VMName> --resource-group <ResourceGroupName>",
+                "description": "Starts a specified virtual machine.",
+                "services": ["VirtualMachines"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az-vm-start"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Access VM",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/remote-desktop.png",
+            "details": {
+                "command": "az vm open-port --port 3389 --resource-group <ResourceGroupName> --name <VMName>",
+                "description": "Opens port 3389 (RDP) to access the virtual machine.",
+                "services": ["VirtualMachines"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az-vm-open-port"
+            }
+        }
+    ]
+}

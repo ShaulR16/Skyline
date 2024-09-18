@@ -1,0 +1,59 @@
+{
+    "title": "Exploit Functions Misconfiguration for Remote Code Execution",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Functions Applications",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "oci fn application list --compartment-id <compartmentId>",
+                "description": "Lists all functions applications in the specified compartment.",
+                "services": ["Functions"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/functions/20181201/Application/ListApplications"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Function",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "oci fn function get --function-id <functionId>",
+                "description": "Describes the specified function to find misconfigurations.",
+                "services": ["Functions"],
+                "attack_types": ["Enumeration"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/functions/20181201/Function/GetFunction"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Invoke Function",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/invoke.png",
+            "details": {
+                "command": "oci fn function invoke --function-id <functionId> --body '{}' --context '{}'",
+                "description": "Invokes the misconfigured function to execute remote code.",
+                "services": ["Functions"],
+                "attack_types": ["Remote Code Execution"],
+                "references": "https://docs.oracle.com/en-us/iaas/api/#/en/functions/20181201/Function/InvokeFunction"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Analyze Execution Results",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/analysis.png",
+            "details": {
+                "command": "Review logs and output for execution results",
+                "description": "Analyzes the results of the executed function.",
+                "services": ["Functions"],
+                "attack_types": ["Remote Code Execution"]
+            }
+        }
+    ]
+}

