@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'iam': ['iam-1.json', 'iam-2.json', 'iam-3.json', 'iam-4.json', 'iam-5.json', 'iam-6.json', 'iam-7.json']
             },
             'azure': {
-                'key-vault': ['key-vault-1.json', 'key-vault-2.json', 'key-vault-3.json', 'key-vault-4.json', 'key-vault-5.json'],
+                'key-vault': ['key-vault-1.json', 'key-vault-2.json', 'key-vault-3.json', 'key-vault-4.json', 'key-vault-5.json', 'key-vault-6.json'],
                 'blob-storage': ['blob-storage-1.json', 'blob-storage-2.json', 'blob-storage-3.json', 'blob-storage-4.json', 'blob-storage-5.json'],
                 'app-services': ['app-service-1.json', 'app-service-2.json', 'app-service-3.json', 'app-service-4.json', 'app-service-5.json', 'app-service-6.json'],
                 'azure-functions': ['azure-function-1.json', 'azure-function-2.json', 'azure-function-3.json', 'azure-function-4.json', 'azure-function-5.json', 'azure-function-6.json'],
