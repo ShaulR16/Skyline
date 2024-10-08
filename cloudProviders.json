@@ -1,0 +1,7 @@
+[
+  { "name": "AWS", "icon": "https://img.icons8.com/?size=100&id=wU62u24brJ44&format=png&color=000000" },
+  { "name": "Azure", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
+  { "name": "GCP", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" },
+  { "name": "Oracle", "icon": "https://img.icons8.com/?size=100&id=39913&format=png&color=000000" },
+  { "name": "AliCloud", "icon": "https://static-00.iconduck.com/assets.00/alibabacloud-icon-2048x2048-fbbo3bwr.png" }
+]
