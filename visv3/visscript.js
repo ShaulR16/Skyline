@@ -80,6 +80,18 @@ document.addEventListener('DOMContentLoaded', function () {
         elements: []
     });
 
+    // 1. Cache DOM Elements
+    const cloudProviderSelect = document.getElementById('cloudProvider');
+    const authMethodSelect = document.getElementById('authMethod');
+    const resetBtn = document.getElementById('resetBtn');
+    const nodeModal = document.getElementById('nodeModal');
+    const nodeTitle = document.getElementById('nodeTitle');
+    const nodeDescription = document.getElementById('nodeDescription');
+    const ifSuccussed = document.getElementById('ifSuccussed');
+    const nodeCommand = document.getElementById('nodeCommand');
+    const nodeReference = document.getElementById('nodeReference');
+    const copyCommandBtn = document.getElementById('copyCommand');
+
     const cloudProviderIcons = {
         Azure: 'https://img.icons8.com/fluency/48/000000/azure-1.png',
         AWS: 'https://img.icons8.com/color/48/000000/amazon-web-services.png',
@@ -88,42 +100,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const expandedNodes = {};
 
-    document.getElementById('cloudProvider').addEventListener('change', loadProviderData);
-    document.getElementById('authMethod').addEventListener('change', loadProviderData);
-    document.getElementById('resetBtn').addEventListener('click', resetGraph);
+    cloudProviderSelect.addEventListener('change', loadProviderData);
+    authMethodSelect.addEventListener('change', loadProviderData);
+    resetBtn.addEventListener('click', resetGraph);
 
     let currentElements = {}; // To store the current elements based on the selected provider and auth method
 
+    // 3. Optimize Data Fetching with Caching
+    const dataCache = {};
+
     function loadProviderData() {
-        const provider = document.getElementById('cloudProvider').value;
-        const authMethod = document.getElementById('authMethod').value;
+        const provider = cloudProviderSelect.value;
+        const authMethod = authMethodSelect.value;
         console.log('Selected provider:', provider);
         console.log('Selected authentication method:', authMethod);
         
         if (provider && authMethod) {
-            const providerFile = `data/${provider.toLowerCase()}/${authMethod}.json`;
-            console.log('Loading file:', providerFile);
-            fetch(providerFile)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    currentElements = data; // Store the loaded elements
-                    console.log('Loaded elements for', provider, currentElements);
-                    updateGraph(); // Attempt to update the graph
-                })
-                .catch(error => console.error('Error loading provider data:', error));
+            const cacheKey = `${provider}_${authMethod}`;
+            if (dataCache[cacheKey]) {
+                currentElements = dataCache[cacheKey]; // Use cached data
+                console.log('Using cached data for', cacheKey);
+                updateGraph();
+            } else {
+                const providerFile = `data/${provider.toLowerCase()}/${authMethod}.json`;
+                console.log('Loading file:', providerFile);
+                fetch(providerFile)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        dataCache[cacheKey] = data; // Cache the data
+                        currentElements = data; // Store the loaded elements
+                        console.log('Loaded elements for', provider, currentElements);
+                        updateGraph(); // Attempt to update the graph
+                    })
+                    .catch(error => console.error('Error loading provider data:', error));
+            }
         } else {
             console.error('Provider or authentication method not selected');
         }
     }
 
     function updateGraph() {
-        const authMethod = document.getElementById('authMethod').value;
-        const provider = document.getElementById('cloudProvider').value;
+        const authMethod = authMethodSelect.value;
+        const provider = cloudProviderSelect.value;
 
         console.log('Selected provider:', provider);
         console.log('Selected authentication method:', authMethod);
@@ -158,35 +181,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 animate: true,
                 animationDuration: 500
             }).run();
-
-            cy.on('tap', 'node', function(evt){
-                const node = evt.target;
-                toggleNode(node.id());
-                node.addClass('node-selected');
-
-                // Check if the node is not a category before displaying the modal
-                if (!node.data('category')) {
-                    // Display modal with detailed information
-                    $('#nodeModal').modal('show');
-                    document.getElementById('nodeTitle').innerText = node.data('title');
-                    document.getElementById('nodeDescription').innerText = node.data('description');
-                    document.getElementById('ifSuccussed').innerText = node.data('ifSuccussed');
-                    document.getElementById('nodeCommand').innerText = node.data('command');
-                    const referenceElement = document.getElementById('nodeReference');
-                    referenceElement.href = node.data('reference');
-                    referenceElement.innerText = node.data('reference');
-                }
-            });
-
-            cy.on('tap', function(event){
-                if(event.target === cy){
-                    cy.nodes().removeClass('node-selected');
-                }
-            });
         } else {
             console.error('No elements found for the selected authentication method:', authMethod);
         }
     }
+
+    // 2. Avoid Re-Attaching Event Handlers
+    cy.on('tap', 'node', function(evt){
+        const node = evt.target;
+        toggleNode(node.id());
+        node.addClass('node-selected');
+
+        // Check if the node is not a category before displaying the modal
+        if (!node.data('category')) {
+            // Display modal with detailed information
+            $('#nodeModal').modal('show');
+            nodeTitle.innerText = node.data('title');
+            nodeDescription.innerText = node.data('description');
+            ifSuccussed.innerText = node.data('ifSuccussed');
+            nodeCommand.innerText = node.data('command');
+            nodeReference.href = node.data('reference');
+            nodeReference.innerText = node.data('reference');
+        }
+    });
+
+    cy.on('tap', function(event){
+        if(event.target === cy){
+            cy.nodes().removeClass('node-selected');
+        }
+    });
 
     function toggleNode(nodeId) {
         if (expandedNodes[nodeId]) {
@@ -226,14 +249,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function resetGraph() {
         cy.elements().remove();
-        document.getElementById('cloudProvider').value = '';
-        document.getElementById('authMethod').value = '';
+        cloudProviderSelect.value = '';
+        authMethodSelect.value = '';
         currentElements = {};
     }
 
     // Copy command to clipboard
-    document.getElementById('copyCommand').addEventListener('click', function() {
-        const commandText = document.getElementById('nodeCommand').innerText;
+    copyCommandBtn.addEventListener('click', function() {
+        const commandText = nodeCommand.innerText;
         navigator.clipboard.writeText(commandText).then(() => {
             alert('Command copied to clipboard');
         });
