@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             attackPathsContainer.innerHTML = '';
-            for (const file of fileList) {
-                const filePath = folderPath + file;
-                const response = await fetch(filePath);
-                const data = await response.json();
+            const fetchPromises = fileList.map(file => fetch(folderPath + file).then(response => response.json()));
+            const dataArray = await Promise.all(fetchPromises);
+
+            dataArray.forEach(data => {
                 if (data && data.nodes) {
                     const attackPathCard = document.createElement('div');
                     attackPathCard.className = 'attack-path-card';  // Use attack-path-card class for attack paths
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     console.error('Invalid data structure:', data);
                 }
-            }
+            });
             attackPathContainer.appendChild(attackPathsContainer);
         } catch (error) {
             console.error('Error loading service data:', error);
