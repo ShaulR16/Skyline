@@ -1,11 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cloudProviders = [
-        { name: 'AWS', icon: 'https://img.icons8.com/?size=100&id=wU62u24brJ44&format=png&color=000000' },
-        { name: 'Azure', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg' },
-        { name: 'GCP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg' },
-        { name: 'Oracle', icon: 'https://img.icons8.com/?size=100&id=39913&format=png&color=000000' },
-        { name: 'AliCloud', icon: 'https://static-00.iconduck.com/assets.00/alibabacloud-icon-2048x2048-fbbo3bwr.png' }
-    ];
+    // Load cloud providers and services data from external JSON files
+    let cloudProviders = [];
+    let services = {};
+    
+    // Fetch cloud provider data
+    fetch('cloudProviders.json')
+      .then(response => response.json())
+      .then(data => {
+        cloudProviders = data;
+        populateCloudProviders();
+      })
+      .catch(error => console.error('Error fetching cloud providers:', error));
+    
+    // Fetch services data
+    fetch('services.json')
+      .then(response => response.json())
+      .then(data => {
+        services = data;
+      })
+      .catch(error => console.error('Error fetching services:', error));
 
     const cloudProvidersContainer = document.getElementById('cloud-providers');
     const attackPathContainer = document.getElementById('attack-path');
@@ -14,8 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const attackPathsContainer = document.createElement('div');
     attackPathsContainer.className = 'attack-path-container';  // Ensure the container has the correct class
 
-    // Populate cloud providers
-    cloudProviders.forEach(provider => {
+    // Function to populate cloud providers
+    function populateCloudProviders() {
+      cloudProvidersContainer.innerHTML = '';
+      cloudProviders.forEach(provider => {
         const providerCard = document.createElement('div');
         providerCard.className = 'card';  // Use card class for cloud providers
         providerCard.innerHTML = `
@@ -26,16 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         providerCard.onclick = () => selectProvider(provider.name);
         cloudProvidersContainer.appendChild(providerCard);
-    });
+      });
+    }
 
     function selectProvider(providerName) {
-        const services = {
-            'AWS': ['EC2', 'S3', 'RDS', 'Lambda', 'VPC', 'IAM', 'DynamoDB', 'CloudFront', 'CloudWatch', 'SNS'],
-            'Azure': ['Virtual Machines', 'Blob Storage', 'SQL Database', 'Azure Active Directory', 'Azure Functions', 'Virtual Network', 'Key Vault', 'Cosmos DB', 'App Services', 'Monitor'],
-            'GCP': ['Compute Engine', 'Cloud Storage', 'Cloud SQL', 'BigQuery', 'Cloud Functions', 'VPC', 'IAM', 'Firestore', 'App Engine', 'Cloud Monitoring'],
-            'Oracle': ['Compute', 'Object Storage', 'Autonomous Database', 'Functions', 'VCN', 'IAM', 'Monitoring', 'Events', 'Notifications', 'API Gateway'],
-            'AliCloud': ['Elastic Compute Service', 'Object Storage Service', 'ApsaraDB RDS', 'Function Compute', 'Virtual Private Cloud', 'Resource Access Management', 'Cloud Monitor', 'EventBridge', 'Message Service', 'API Gateway']
-        };
+        // Services data will be loaded from the external JSON file
+    // const services = { ... };
 
         cloudProvidersContainer.innerHTML = '';
         attackPathContainer.innerHTML = '';
