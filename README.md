@@ -17,9 +17,7 @@ For a demo, please visit: [https://shaulr16.github.io/Skyline/](https://shaulr16
 
 ## Technologies Used
 
-- **HTML, CSS, JavaScript**: Core technologies for the front-end development of the interactive mind map.
-- **Bootstrap**: For responsive design and user interface components.
-- **JavaScript Libraries**: (Specify any additional libraries used, if applicable)
+- **HTML, CSS, JavaScript, Bootstrap****: Core technologies for the front-end development of the interactive mind map.
 
 ## How It Works
 
