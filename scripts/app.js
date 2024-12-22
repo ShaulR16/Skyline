@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'cloudfront': ['cloudfront-1.json', 'cloudfront-2.json', 'cloudfront-3.json', 'cloudfront-4.json', 'cloudfront-5.json'],
                 'cloudwatch': ['cloudwatch-1.json', 'cloudwatch-2.json', 'cloudwatch-3.json', 'cloudwatch-4.json', 'cloudwatch-5.json'],
                 'sns': ['sns-1.json', 'sns-2.json', 'sns-3.json', 'sns-4.json', 'sns-5.json', 'sns-6.json'],
+                'guardduty': ['guardduty-1.json', 'guardduty-2.json'],
                 'iam': ['iam-1.json', 'iam-2.json', 'iam-3.json', 'iam-4.json', 'iam-5.json', 'iam-6.json', 'iam-7.json']
             },
             'azure': {
