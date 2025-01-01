@@ -4,12 +4,21 @@
 
 ## Features
 
-- **Interactive Mind Map**: The mind map dynamically updates based on user input. When a user clicks on a node, related nodes are displayed, allowing users to drill down into specific attack paths.
-- **Cloud Provider Support**: Users can start by selecting their cloud provider (AWS, Azure, GCP). More providers (e.g., Oracle Cloud and Alibaba Cloud) will be added in future updates.
-- **Attack Path Visualization**: Users input what they have (e.g., username/password, token, email), and the tool provides potential attack paths based on real-world techniques.
-- **Command Suggestions**: The mind map includes a module for inspiration, displaying attack paths for specific cloud services, along with associated commands, to help testers explore more avenues.
-- **JSON-based Configuration**: All attack paths are stored in JSON format, making them robust and easy to maintain. This structure simplifies the process of adding new paths and customizing the attack tree.
-- **Community Contributions**: Contributions are encouraged! Submit new attack paths to help grow the knowledge base.
+- **Interactive Mind Map**  
+  The mind map dynamically updates based on user input. When a user clicks on a node, related nodes are displayed, allowing users to drill down into specific attack paths.
+- **Cloud Provider Support**  
+  Users can start by selecting their cloud provider (AWS, Azure, GCP). More providers (e.g., Oracle Cloud and Alibaba Cloud) will be added in future updates.
+- **Permissions-Based Attack Path**  
+  By analyzing user-provided permission outputs, the tool identifies and visualizes potential offensive paths. Critical permission combinations are highlighted, helping testers understand how various permissions could be chained together in an attack.
+- **Attack Path Visualization**  
+  Users input what they have (e.g., username/password, token, email), and the tool provides potential attack paths based on real-world techniques.
+- **Command Suggestions**  
+  The mind map includes a module for inspiration, displaying attack paths for specific cloud services, along with associated commands, to help testers explore more avenues.
+- **JSON-Based Configuration**  
+  All attack paths are stored in JSON format, making them robust and easy to maintain. This structure simplifies the process of adding new paths and customizing the attack tree.
+- **Community Contributions**  
+  Contributions are encouraged! Submit new attack paths to help grow the knowledge base.
+
 
 ## Demo
 
