@@ -1,0 +1,128 @@
+{
+  "permission_sets": [
+    {
+      "id": "basic_s3_access",
+      "name": "Basic S3 Access",
+      "permissions": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ]
+    },
+    {
+      "id": "advanced_ec2_access",
+      "name": "Advanced EC2 Access",
+      "permissions": [
+        "ec2:DescribeInstances",
+        "ec2:StartInstances",
+        "ec2:StopInstances"
+      ]
+    },
+    {
+      "id": "iam_privilege_escalation",
+      "name": "IAM Privilege Escalation",
+      "permissions": [
+        "iam:ListRoles",
+        "iam:AssumeRole"
+      ]
+    },
+    {
+      "id": "guardduty_modification",
+      "name": "GuardDuty Modification",
+      "permissions": [
+        "guardduty:ListDetectors",
+        "guardduty:UpdateDetector",
+        "guardduty:ListIPSets",
+        "guardduty:CreateIPSet",
+        "guardduty:UpdateIPSet",
+        "guardduty:DeletePublishingDestination",
+        "events:ListRules",
+        "events:ListTargetsByRule",
+        "events:PutRule",
+        "events:RemoveTargets",
+        "guardduty:CreateFilter",
+        "iam:PutRolePolicy"
+      ]
+    },
+    {
+      "id": "persistence_creation",
+      "name": "Persistence Mechanisms",
+      "permissions": [
+        "lambda:CreateFunction",
+        "lambda:UpdateFunctionCode",
+        "iam:CreateAccessKey",
+        "sts:GetFederationToken"
+      ]
+    },
+    {
+      "id": "logging_manipulation",
+      "name": "Logging Service Control",
+      "permissions": [
+        "cloudtrail:StopLogging",
+        "cloudtrail:UpdateTrail",
+        "guardduty:UpdateDetector",
+        "guardduty:CreateFilter"
+      ]
+    },
+    {
+      "id": "command_execution",
+      "name": "Remote Command Execution",
+      "permissions": [
+        "ssm:SendCommand",
+        "lambda:CreateFunction",
+        "ec2:DescribeInstances"
+      ]
+    },
+    {
+      "id": "secretsmanager_exfiltration",
+      "name": "Secrets Manager Access",
+      "permissions": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:ListSecrets",
+        "kms:Decrypt"
+      ]
+    },
+    {
+      "id": "eventbridge_manipulation",
+      "name": "EventBridge Rule Control",
+      "permissions": [
+        "events:PutRule",
+        "events:DeleteRule",
+        "events:PutTargets",
+        "events:RemoveTargets",
+        "events:DisableRule"
+      ]
+    },
+    {
+      "id": "stealthy_enumeration",
+      "name": "Stealthy Resource Enumeration",
+      "permissions": [
+        "iam:GetAccountAuthorizationDetails",
+        "organizations:ListAccounts",
+        "organizations:DescribeAccount",
+        "config:SelectResourceConfig"
+      ]
+    },
+    {
+      "id": "ecr_manipulation",
+      "name": "ECR Image Manipulation",
+      "permissions": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchGetImage",
+        "ecr:PutImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload"
+      ]
+    },
+    {
+      "id": "ec2_userdata_manipulation",
+      "name": "EC2 UserData Manipulation",
+      "permissions": [
+        "ec2:ModifyInstanceAttribute",
+        "ec2:StopInstances",
+        "ec2:StartInstances",
+        "ec2:DescribeInstances"
+      ]
+    }
+  ]
+}
