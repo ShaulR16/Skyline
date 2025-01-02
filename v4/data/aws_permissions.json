@@ -1,0 +1,226 @@
+{
+  "permissions": [
+    {
+      "id": "ec2:DescribeInstances",
+      "name": "DescribeInstances",
+      "description": "Allows listing of EC2 instances.",
+      "service": "EC2"
+    },
+    {
+      "id": "s3:ListBucket",
+      "name": "ListBucket",
+      "description": "Allows listing of objects within an S3 bucket.",
+      "service": "S3"
+    },
+    {
+      "id": "s3:GetObject",
+      "name": "GetObject",
+      "description": "Allows retrieval of objects from an S3 bucket.",
+      "service": "S3"
+    },
+    {
+      "id": "iam:ListRoles",
+      "name": "ListRoles",
+      "description": "Allows listing of IAM roles.",
+      "service": "IAM"
+    },
+    {
+      "id": "iam:AssumeRole",
+      "name": "AssumeRole",
+      "description": "Allows assuming an IAM role.",
+      "service": "IAM"
+    },
+    {
+      "id": "guardduty:CreateDetector",
+      "name": "CreateDetector",
+      "description": "Allows creation of GuardDuty detectors.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:DeleteDetector",
+      "name": "DeleteDetector",
+      "description": "Allows deletion of GuardDuty detectors.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:ListDetectors",
+      "name": "ListDetectors",
+      "description": "Allows listing of GuardDuty detectors.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:UpdateDetector",
+      "name": "UpdateDetector",
+      "description": "Allows updating GuardDuty detector settings.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:GetFindings",
+      "name": "GetFindings",
+      "description": "Allows retrieval of GuardDuty findings.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:ListFindings",
+      "name": "ListFindings",
+      "description": "Allows listing of GuardDuty findings.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:CreateIPSet",
+      "name": "CreateIPSet",
+      "description": "Allows creation of IP sets in GuardDuty.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:DeleteIPSet",
+      "name": "DeleteIPSet",
+      "description": "Allows deletion of IP sets in GuardDuty.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:UpdateIPSet",
+      "name": "UpdateIPSet",
+      "description": "Allows updating of IP sets in GuardDuty.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:CreateThreatIntelSet",
+      "name": "CreateThreatIntelSet",
+      "description": "Allows creation of threat intelligence sets in GuardDuty.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:DeleteThreatIntelSet",
+      "name": "DeleteThreatIntelSet",
+      "description": "Allows deletion of threat intelligence sets in GuardDuty.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "guardduty:UpdateThreatIntelSet",
+      "name": "UpdateThreatIntelSet",
+      "description": "Allows updating of threat intelligence sets in GuardDuty.",
+      "service": "GuardDuty"
+    },
+    {
+      "id": "lambda:CreateFunction",
+      "name": "CreateFunction",
+      "description": "Allows creation of Lambda functions for persistence and lateral movement.",
+      "service": "Lambda"
+    },
+    {
+      "id": "lambda:UpdateFunctionCode",
+      "name": "UpdateFunctionCode",
+      "description": "Allows modification of existing Lambda functions.",
+      "service": "Lambda"
+    },
+    {
+      "id": "iam:CreateAccessKey",
+      "name": "CreateAccessKey",
+      "description": "Allows creation of new IAM access keys for persistence.",
+      "service": "IAM"
+    },
+    {
+      "id": "sts:GetFederationToken",
+      "name": "GetFederationToken",
+      "description": "Allows creation of temporary credentials that survive key deletion.",
+      "service": "STS"
+    },
+    {
+      "id": "ssm:SendCommand",
+      "name": "SendCommand",
+      "description": "Allows remote command execution on EC2 instances.",
+      "service": "SSM"
+    },
+    {
+      "id": "cloudtrail:StopLogging",
+      "name": "StopLogging",
+      "description": "Allows disabling of CloudTrail logging.",
+      "service": "CloudTrail"
+    },
+    {
+      "id": "cloudtrail:UpdateTrail",
+      "name": "UpdateTrail",
+      "description": "Allows modification of CloudTrail settings.",
+      "service": "CloudTrail"
+    },
+    {
+      "id": "ecr:GetAuthorizationToken",
+      "name": "GetAuthorizationToken",
+      "description": "Allows retrieval of ECR authentication token.",
+      "service": "ECR"
+    },
+    {
+      "id": "ecr:BatchGetImage",
+      "name": "BatchGetImage",
+      "description": "Allows retrieval of container images from ECR.",
+      "service": "ECR"
+    },
+    {
+      "id": "ecr:PutImage",
+      "name": "PutImage",
+      "description": "Allows pushing container images to ECR.",
+      "service": "ECR"
+    },
+    {
+      "id": "ecr:InitiateLayerUpload",
+      "name": "InitiateLayerUpload",
+      "description": "Allows starting an image layer upload.",
+      "service": "ECR"
+    },
+    {
+      "id": "ecr:UploadLayerPart",
+      "name": "UploadLayerPart",
+      "description": "Allows uploading image layer parts.",
+      "service": "ECR"
+    },
+    {
+      "id": "ecr:CompleteLayerUpload",
+      "name": "CompleteLayerUpload",
+      "description": "Allows completing an image layer upload.",
+      "service": "ECR"
+    },
+    {
+      "id": "ec2:ModifyInstanceAttribute",
+      "name": "ModifyInstanceAttribute",
+      "description": "Allows modification of EC2 instance attributes including user data.",
+      "service": "EC2"
+    },
+    {
+      "id": "ec2:StopInstances",
+      "name": "StopInstances",
+      "description": "Allows stopping EC2 instances.",
+      "service": "EC2"
+    },
+    {
+      "id": "ec2:StartInstances",
+      "name": "StartInstances",
+      "description": "Allows starting EC2 instances.",
+      "service": "EC2"
+    },
+    {
+      "id": "route53:CreateHostedZone",
+      "name": "CreateHostedZone",
+      "description": "Allows creation of Route53 hosted zones, including private zones that can override AWS API endpoints.",
+      "service": "Route53"
+    },
+    {
+      "id": "route53:ChangeResourceRecordSets",
+      "name": "ChangeResourceRecordSets",
+      "description": "Allows modification of DNS records within Route53 hosted zones.",
+      "service": "Route53"
+    },
+    {
+      "id": "acm-pca:IssueCertificate",
+      "name": "IssueCertificate",
+      "description": "Allows issuing certificates from a private certificate authority.",
+      "service": "ACM-PCA"
+    },
+    {
+      "id": "acm-pca:GetCertificate",
+      "name": "GetCertificate",
+      "description": "Allows retrieval of certificates issued by a private certificate authority.",
+      "service": "ACM-PCA"
+    }
+  ]
+}
