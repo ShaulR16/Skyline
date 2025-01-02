@@ -1,0 +1,81 @@
+{
+    "permission_sets": [
+        {
+            "id": "data_access",
+            "name": "Data Access Capabilities",
+            "permissions": [
+                "Microsoft.Storage/storageAccounts/*",
+                "Microsoft.KeyVault/*"
+            ]
+        },
+        {
+            "id": "compute_control",
+            "name": "Compute Control",
+            "permissions": [
+                "Microsoft.Compute/*",
+                "Microsoft.Network/*"
+            ]
+        },
+        {
+            "id": "privilege_escalation",
+            "name": "Privilege Escalation Capabilities",
+            "permissions": [
+                "Microsoft.Authorization/*"
+            ]
+        },
+        {
+            "id": "full_infrastructure",
+            "name": "Full Infrastructure Control",
+            "permissions": [
+                "Microsoft.Storage/storageAccounts/*",
+                "Microsoft.Compute/*",
+                "Microsoft.Network/*"
+            ]
+        },
+        {
+            "id": "identity_manipulation",
+            "name": "Identity Control",
+            "permissions": [
+                "Microsoft.Authorization/roleAssignments/*",
+                "Microsoft.Authorization/roleDefinitions/*",
+                "Microsoft.ManagedIdentity/*"
+            ]
+        },
+        {
+            "id": "function_control",
+            "name": "Function App Control",
+            "permissions": [
+                "Microsoft.Web/sites/*",
+                "Microsoft.Web/sites/functions/*",
+                "Microsoft.Web/sites/host/*"
+            ]
+        },
+        {
+            "id": "monitoring_evasion",
+            "name": "Monitoring Evasion",
+            "permissions": [
+                "Microsoft.Security/policies/*",
+                "Microsoft.Security/alerts/*",
+                "Microsoft.OperationalInsights/workspaces/*"
+            ]
+        },
+        {
+            "id": "automation_account_control",
+            "name": "Automation Account Control",
+            "permissions": [
+                "Microsoft.Automation/automationAccounts/*",
+                "Microsoft.Automation/automationAccounts/runbooks/*",
+                "Microsoft.Automation/automationAccounts/jobs/*"
+            ]
+        },
+        {
+            "id": "diagnostic_settings_control",
+            "name": "Diagnostic Settings Control",
+            "permissions": [
+                "Microsoft.Insights/diagnosticSettings/*",
+                "Microsoft.Insights/activityLogAlerts/*",
+                "Microsoft.Insights/metricAlerts/*"
+            ]
+        }
+    ]
+} 
