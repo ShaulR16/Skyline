@@ -536,7 +536,6 @@ style: {
     font-size: 0.9rem;
 }
 
-/* Node Symbols */
 .legend-symbol {
     width: 30px;
     height: 30px;
@@ -569,7 +568,6 @@ style: {
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
-/* Edge Symbols */
 .legend-edge {
     width: 40px;
     height: 4px;
@@ -589,39 +587,38 @@ style: {
     border-bottom: 6px solid transparent;
 }
 
-/* Allowed Access */
 .edge-allowed-symbol {
     background-color: #2A9D8F;
 }
+
 .edge-allowed-symbol::after {
     border-left-color: #2A9D8F;
 }
 
-/* Denied Access */
 .edge-critical-symbol {
     background-color: #E76F51;
 }
+
 .edge-critical-symbol::after {
     border-left-color: #E76F51;
 }
 
-/* Attack Step Flow */
 .edge-step-symbol {
     background-color: #a8d0e6;
 }
+
 .edge-step-symbol::after {
     border-left-color: #a8d0e6;
 }
 
-/* Permission Set Link */
 .edge-combined-symbol {
     background-color: #17a2b8;
 }
+
 .edge-combined-symbol::after {
     border-left-color: #17a2b8;
 }
 
-/* Hover effects for legend items */
 .legend-item:hover {
     cursor: pointer;
     opacity: 0.8;
@@ -629,7 +626,6 @@ style: {
     transition: all 0.3s ease;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .legend-grid {
         grid-template-columns: 1fr;
