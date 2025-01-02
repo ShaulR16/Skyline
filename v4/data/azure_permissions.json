@@ -1,0 +1,34 @@
+{
+  "permissions": [
+    {
+      "id": "Microsoft.Storage/storageAccounts/*",
+      "name": "All Storage Account Operations",
+      "description": "Full access to storage account operations",
+      "service": "Storage"
+    },
+    {
+      "id": "Microsoft.Compute/*",
+      "name": "All Compute Operations",
+      "description": "Full access to compute resources",
+      "service": "Compute"
+    },
+    {
+      "id": "Microsoft.Authorization/*",
+      "name": "All Authorization Operations",
+      "description": "Full access to role and policy operations",
+      "service": "Authorization"
+    },
+    {
+      "id": "Microsoft.KeyVault/*",
+      "name": "All KeyVault Operations",
+      "description": "Full access to key vault operations",
+      "service": "KeyVault"
+    },
+    {
+      "id": "Microsoft.Network/*",
+      "name": "All Network Operations",
+      "description": "Full access to networking operations",
+      "service": "Network"
+    }
+  ]
+}
