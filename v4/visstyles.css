@@ -1,0 +1,663 @@
+/* visstyles.css */
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0a0f2c;
+  color: #fff;
+}
+
+.navbar {
+  background-color: #29293d !important;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #ff004d !important;
+}
+
+.nav-link {
+  color: #fff !important;
+}
+
+.nav-link:hover {
+  color: #ff004d !important;
+}
+
+h1 {
+  color: #fff;
+}
+
+h3 {
+  color: #ffbf00; /* Enhanced visibility for section titles */
+}
+
+
+.cy {
+  width: 100%;
+  height: 70vh; /* Responsive height using viewport units */
+  border: 1px solid #ccc;
+  background-color: #0a0f2c;
+  border-radius: 8px; /* Rounded corners for the graph container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+  margin-bottom: 2rem; /* Space below the graph */
+}
+
+select.form-control,
+button {
+  background-color: #1b213b;
+  color: #fff;
+  border: 1px solid #525f80;
+  border-radius: 4px; /* Rounded corners for inputs and buttons */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transitions */
+}
+
+select.form-control:focus,
+button:focus {
+  background-color: #1b213b;
+  color: #fff;
+  border: 1px solid #ffbf00; /* Highlight border on focus */
+  outline: none; /* Remove default outline */
+}
+
+button:hover {
+  background-color: #525f80; /* Darker background on hover */
+  color: #ffbf00; /* Highlight text color on hover */
+}
+
+/* Node Styles */
+
+.node-attacker {
+  background-color: #ff3b3f;
+  shape: ellipse;
+  width: 100px; /* Initial size, dynamically adjusted */
+  height: 100px; /* Initial size, dynamically adjusted */
+  background-image: url("https://img.icons8.com/ios-filled/50/ffffff/hacker.png");
+  background-fit: cover;
+  background-clip: none;
+  background-opacity: 1;
+  font-size: 13px; /* Adjusted font size */
+  color: #ffffff; /* Changed from #a9a9a9 to white */
+  text-valign: center; /* Ensures vertical centering */
+  text-halign: center; /* Ensures horizontal centering */
+  overflow: hidden; /* Prevent text overflow */
+}
+
+.node-normal {
+  background-color: #3b82f6;
+  shape: round-rectangle;
+  width: 120px; /* Initial size, dynamically adjusted */
+  height: 80px; /* Initial size, dynamically adjusted */
+  border-color: #ffffff;
+  border-width: 2px;
+  font-size: 11px; /* Adjusted font size */
+  color: #ffffff; /* Changed from #a9a9a9 to white */
+  text-valign: center; /* Ensures vertical centering */
+  text-halign: center; /* Ensures horizontal centering */
+  overflow: hidden; /* Prevent text overflow */
+}
+
+.node-offensive {
+  background-color: #ffbf00;
+  shape: ellipse;
+  width: 140px; /* Initial size, dynamically adjusted */
+  height: 80px; /* Initial size, dynamically adjusted */
+  background-image: url("https://img.icons8.com/ios-filled/50/ffffff/malware.png");
+  background-fit: cover;
+  background-clip: none;
+  background-opacity: 1;
+  font-size: 11px; /* Adjusted font size */
+  color: #ffffff; /* Changed from #a9a9a9 to white */
+  border-color: #ffffff;
+  border-width: 2px;
+  text-valign: center; /* Ensures vertical centering */
+  text-halign: center; /* Ensures horizontal centering */
+  overflow: hidden; /* Prevent text overflow */
+}
+
+.step-node {
+  background-color: #a8d0e6;
+  shape: diamond;
+  width: 120px; /* Initial size, dynamically adjusted */
+  height: 80px; /* Initial size, dynamically adjusted */
+  border-color: #ffffff;
+  border-width: 2px;
+  font-size: 11px; /* Adjusted font size */
+  color: #ffffff; /* Changed from #a9a9a9 to white */
+  text-valign: center; /* Ensures vertical centering */
+  text-halign: center; /* Ensures horizontal centering */
+  overflow: hidden; /* Prevent text overflow */
+}
+
+.node-selected {
+  border-color: #ffeb3b;
+  border-width: 3px;
+}
+
+/* Edge Styles */
+.edge {
+  width: 4px;
+  line-color: #8e8e8e;
+  target-arrow-color: #8e8e8e;
+  target-arrow-shape: triangle;
+}
+
+.edge-allowed {
+  line-color: green;
+  target-arrow-color: green;
+}
+
+.edge-critical {
+  line-color: #ff3b3f;
+  target-arrow-color: #ff3b3f;
+}
+
+.edge-step { /* New Edge Class for Step-to-Step Connections */
+  line-color: #a8d0e6; /* Light blue for step connections */
+  target-arrow-color: #a8d0e6;
+  target-arrow-shape: triangle;
+}
+
+/* Modal Styles */
+.modal-content {
+  background-color: #2a2a3b;
+  border-radius: 8px;
+  color: #fff;
+  width: 150%;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-title {
+  color: #ffbf00;
+  font-size: 1.5rem;
+}
+
+.modal-body {
+  background-color: #2a2a3b;
+  padding: 20px;
+}
+
+.modal-footer {
+  border-top: none;
+  background-color: #2a2a3b;
+}
+
+.btn-secondary {
+  background-color: #4b4b6b;
+  border: none;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #525f80;
+}
+
+.close {
+  color: #fff;
+  opacity: 1;
+}
+
+.close:hover {
+  color: #ffeb3b;
+}
+
+/* Node Details */
+#nodeTitle {
+  color: #ffbf00;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#nodeDescription,
+#nodeCommand,
+#nodeReference {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+#nodeReference {
+  color: #4da6ff;
+  text-decoration: underline;
+}
+
+#nodeReference:hover {
+  color: #ffeb3b;
+}
+
+/* Attack Path Section */
+#attackPathSection {
+  margin-top: 20px;
+}
+
+#attackPathSection h5 {
+  color: #ffbf00;
+}
+
+#attackPathContent {
+  background-color: #1b1b2f;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Updated Styles as per Request */
+
+/* Change background-color of #nodeCommand to #0a0f2c */
+#nodeCommand {
+  background-color: #0a0f2c;
+}
+
+/* Change background-color of elements with classes .code.bg-light.p-2.rounded to #0a0f2c */
+.code.bg-light.p-2.rounded {
+  background-color: #0a0f2c;
+}
+
+/* Code Snippet Styles */
+.code-snippet {
+  position: relative;
+  background-color: #1b1b2f;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  overflow: auto;
+  max-height: 300px;
+}
+
+.code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: monospace;
+  color: #a8d0e6; /* Light blue color for code text */
+  margin: 0;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.copy-btn img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%);
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #29293d !important;
+  border-bottom: 2px solid #525f80;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #ff004d !important;
+}
+
+.nav-link {
+  color: #fff !important;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffbf00 !important;
+}
+
+/* Action Card Styles */
+.action-card {
+  background-color: #1b213b; /* Dark background color to match the theme */
+  color: #ffffff; /* White text for readability */
+  border: 1px solid #525f80; /* Subtle border to define card edges */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+  margin-bottom: 1rem; /* Space below each card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.action-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
+}
+
+.action-card .card-title {
+  color: #ffbf00; /* Highlight color for titles */
+  font-size: 1.25rem; /* Larger font size for emphasis */
+  transition: color 0.3s ease;
+}
+
+.action-card .card-title:hover {
+  color: #ffeb3b; /* Lighter yellow on hover */
+}
+
+.action-card .card-text {
+  color: #ffffff; /* Ensures description text is readable */
+  font-size: 1rem; /* Standard font size for content */
+  transition: color 0.3s ease;
+}
+
+.action-card .card-text:hover {
+  color: #e0e0e0; /* Slightly lighter text on hover */
+}
+
+.action-card .code-snippet {
+  background-color: #2a2a3b; /* Slightly lighter dark background for code blocks */
+  border-radius: 4px; /* Rounded corners for code blocks */
+  padding: 10px; /* Padding inside code blocks */
+  position: relative; /* Positioning context for the copy button */
+  margin-top: 10px; /* Space above code blocks */
+}
+
+.action-card .code {
+  color: #a8d0e6; /* Light blue color for code text */
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for code */
+  white-space: pre-wrap; /* Allows code to wrap */
+  word-wrap: break-word; /* Breaks long words if necessary */
+}
+
+.action-card .copy-offensive-btn {
+  position: absolute; /* Position relative to the code-snippet container */
+  top: 10px; /* Aligns the button to the top */
+  right: 10px; /* Aligns the button to the right */
+  background-color: #525f80; /* Button background color */
+  color: #ffffff; /* Button text color */
+  border: none; /* Removes default border */
+  border-radius: 4px; /* Rounded corners for the button */
+  padding: 5px 10px; /* Padding inside the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.action-card .copy-offensive-btn:hover {
+  background-color: #ffbf00; /* Changes background on hover */
+  color: #000000; /* Changes text color on hover */
+}
+
+.action-card .copy-offensive-btn::before {
+  content: '📋 '; /* Adds a clipboard emoji before the button text */
+  margin-right: 5px;
+}
+
+.graph-container {
+    width: 90%;
+    height: 80vh;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: #4e4e4e;
+    margin: 0 auto; /* Centers the div horizontally */
+}
+
+/* Responsive Adjustment */
+@media (max-width: 768px) {
+    .graph-container {
+        width: 90%; /* Adjusts width for smaller screens */
+    }
+}
+
+.node-attacker,
+.node-normal,
+.node-offensive,
+.step-node {
+  /* ... existing styles ... */
+  text-wrap: wrap;
+  text-max-width: 120px; /* Adjust as needed */
+  padding: 10px; /* Optional: Add padding for better spacing */
+  box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+/* Ensure the pre elements within nodes also handle wrapping */
+#nodeCommand {
+  background-color: #0a0f2c;
+  color: #ffffff; /* Gray text */
+  white-space: pre-wrap; /* Allow wrapping */
+  word-wrap: break-word; /* Break long words */
+}
+
+.code.bg-light.p-2.rounded {
+  background-color: #0a0f2c;
+  white-space: pre-wrap; /* Allow wrapping */
+  word-wrap: break-word; /* Break long words */
+}
+
+.node-combined-permissions {
+  background-color: #6c757d; /* Gray color */
+  shape: hexagon;
+  color: #ffffff; /* Changed from #a9a9a9 to white */
+  text-wrap: wrap;
+  text-max-width: 150px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 12px; /* Adjust as needed */
+  font-weight: bold;
+  overflow: hidden; /* Prevent text overflow */
+}
+
+/* Combined Permissions Edge Styles */
+.edge-combined-permissions {
+  line-color: #17a2b8; /* Info color */
+  target-arrow-color: #17a2b8;
+  target-arrow-shape: triangle;
+}
+
+/* General Combined Permissions Styling (Optional) */
+.node-permission-set {
+  background-color: #ffbf00; /* Yellow color */
+  shape: octagon;
+  color: #a9a9a9;
+  text-wrap: wrap;
+  text-max-width: 160px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+/* Optional: Hover Effects for Combined Permissions */
+.node-combined-permissions:hover,
+.node-permission-set:hover {
+  border-color: #ffeb3b; /* Highlight border on hover */
+  border-width: 3px;
+}
+
+/* Ensure existing node styles support wrapping and dynamic sizing */
+.node-attacker,
+.node-normal,
+.node-offensive,
+.step-node {
+  /* Existing styles ... */
+  text-wrap: wrap;
+  text-max-width: 120px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Update edge label color */
+.edge {
+  color: #ffffff; /* Changed from #a9a9a9 to white */
+}
+
+/* Update the Cytoscape node style in your general styles */
+selector: 'node',
+style: {
+  color: '#ffffff', /* Changed from #a9a9a9 to white */
+}
+
+/* Legend Styles */
+.legend-container {
+    background-color: #1b213b;
+    border: 1px solid #525f80;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.legend-container h5 {
+    color: #ffbf00;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.legend-container h6 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.legend-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.legend-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* Node Symbols */
+.legend-symbol {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #fff;
+    flex-shrink: 0;
+}
+
+.node-attacker-symbol {
+    background-color: #ff3b3f;
+    border-radius: 50%;
+}
+
+.node-normal-symbol {
+    background-color: #3b82f6;
+    border-radius: 5px;
+}
+
+.node-offensive-symbol {
+    background-color: #ffbf00;
+    border-radius: 50%;
+}
+
+.step-node-symbol {
+    background-color: #a8d0e6;
+    transform: rotate(45deg);
+}
+
+.permission-set-symbol {
+    background-color: #6c757d;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Edge Symbols */
+.legend-edge {
+    width: 40px;
+    height: 4px;
+    position: relative;
+    margin: 8px 0;
+}
+
+.legend-edge::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+/* Allowed Access */
+.edge-allowed-symbol {
+    background-color: #2A9D8F;
+}
+.edge-allowed-symbol::after {
+    border-left-color: #2A9D8F;
+}
+
+/* Denied Access */
+.edge-critical-symbol {
+    background-color: #E76F51;
+}
+.edge-critical-symbol::after {
+    border-left-color: #E76F51;
+}
+
+/* Attack Step Flow */
+.edge-step-symbol {
+    background-color: #a8d0e6;
+}
+.edge-step-symbol::after {
+    border-left-color: #a8d0e6;
+}
+
+/* Permission Set Link */
+.edge-combined-symbol {
+    background-color: #17a2b8;
+}
+.edge-combined-symbol::after {
+    border-left-color: #17a2b8;
+}
+
+/* Hover effects for legend items */
+.legend-item:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transform: translateX(5px);
+    transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .legend-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .legend-container {
+        margin-top: 15px;
+        padding: 10px;
+    }
+    
+    .legend-item {
+        font-size: 0.8rem;
+    }
+}
+
+.nav-separator {
+    color: #525f80;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .nav-separator {
+        display: none;
+    }
+}
+
+.navbar-nav .nav-link {
+    padding: 8px 15px !important;
+}
