@@ -187,3 +187,19 @@ select.form-control:focus, button:focus {
   .nav-link:hover {
     color: #ff004d !important;
   }
+.nav-separator {
+    color: #525f80;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .nav-separator {
+        display: none;
+    }
+}
+
+.navbar-nav .nav-link {
+    padding: 8px 15px !important;
+}
